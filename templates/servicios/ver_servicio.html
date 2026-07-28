@@ -41,6 +41,30 @@ Detalle del Servicio
 
                 <div class="col-md-6 mb-3">
 
+                    <strong>Fecha de Ingreso:</strong><br>
+
+                    {% if servicio.fecha_ingreso %}
+                        {{ servicio.fecha_ingreso.strftime('%d/%m/%Y') }}
+                    {% else %}
+                        No registrada
+                    {% endif %}
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <strong>Fecha de Entrega:</strong><br>
+
+                    {% if servicio.fecha_entrega %}
+                        {{ servicio.fecha_entrega.strftime('%d/%m/%Y') }}
+                    {% else %}
+                        Pendiente
+                    {% endif %}
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
                     <strong>Estado:</strong><br>
 
                     {{ servicio.estado }}
@@ -76,9 +100,7 @@ Detalle del Servicio
             <div class="d-flex justify-content-between align-items-center mb-3">
 
                 <h4 class="mb-0">
-
                     Productos Utilizados
-
                 </h4>
 
                 <a href="/servicios/{{ servicio.id_servicio }}/agregar_producto"
@@ -97,11 +119,8 @@ Detalle del Servicio
                     <tr>
 
                         <th>Producto</th>
-
                         <th>Marca</th>
-
                         <th>Cantidad</th>
-
                         <th>Subtotal</th>
 
                     </tr>
@@ -115,11 +134,8 @@ Detalle del Servicio
                     <tr>
 
                         <td>{{ detalle.producto.nombre_producto }}</td>
-
                         <td>{{ detalle.producto.marca }}</td>
-
                         <td>{{ detalle.cantidad }}</td>
-
                         <td>$ {{ detalle.subtotal }}</td>
 
                     </tr>
@@ -155,9 +171,7 @@ Detalle del Servicio
                         <div class="card-body">
 
                             <h6 class="text-muted">
-
                                 Costo del Servicio
-
                             </h6>
 
                             <h3 class="text-primary">
@@ -179,9 +193,7 @@ Detalle del Servicio
                         <div class="card-body">
 
                             <h6 class="text-muted">
-
                                 Total Productos
-
                             </h6>
 
                             <h3 class="text-info">
@@ -203,9 +215,7 @@ Detalle del Servicio
                         <div class="card-body">
 
                             <h6 class="text-muted">
-
                                 TOTAL A PAGAR
-
                             </h6>
 
                             <h2 class="text-success">
