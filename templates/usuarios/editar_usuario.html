@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Editar Usuario
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-warning">
+
+            <h4 class="mb-0">
+                ✏️ Editar Usuario
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Nombre Completo
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nombre"
+                        class="form-control"
+                        value="{{ usuario.nombre }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Usuario
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="usuario"
+                        class="form-control"
+                        value="{{ usuario.usuario }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Correo Electrónico
+
+                    </label>
+
+                    <input
+                        type="email"
+                        name="correo"
+                        class="form-control"
+                        value="{{ usuario.correo }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Contraseña
+
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        value="{{ usuario.password }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+
+                        Rol
+
+                    </label>
+
+                    <select
+                        name="rol"
+                        class="form-select"
+                        required
+                    >
+
+                        <option value="Administrador"
+                        {% if usuario.rol == "Administrador" %}selected{% endif %}>
+                            Administrador
+                        </option>
+
+                        <option value="Técnico"
+                        {% if usuario.rol == "Técnico" %}selected{% endif %}>
+                            Técnico
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-warning"
+                >
+
+                    Actualizar Usuario
+
+                </button>
+
+                <a
+                    href="/usuarios"
+                    class="btn btn-secondary"
+                >
+
+                    Cancelar
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

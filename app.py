@@ -78,6 +78,27 @@ class Inventario(db.Model):
     fecha_registro = db.Column(db.Date)
 
 # =========================================
+# MODELO USUARIOS
+# =========================================
+
+class Usuario(db.Model):
+
+    __tablename__ = 'usuarios'
+
+    id_usuario = db.Column(db.Integer, primary_key=True)
+
+    nombre = db.Column(db.String(100))
+
+    usuario = db.Column(db.String(100))
+
+    correo = db.Column(db.String(100))
+
+    password = db.Column(db.String(255))
+
+    rol = db.Column(db.String(50))
+
+    fecha_creacion = db.Column(db.Date)
+# =========================================
 # RUTA INICIO
 # =========================================
 
@@ -387,6 +408,88 @@ def editar_producto(id):
         producto=producto
     )
 
+# =========================================
+# LISTAR USUARIOS
+# =========================================
+
+@app.route('/usuarios')
+def usuarios():
+
+    lista_usuarios = Usuario.query.all()
+
+    return render_template(
+        'usuarios/lista_usuarios.html',
+        usuarios=lista_usuarios
+    )
+
+
+# =========================================
+# CREAR USUARIO
+# =========================================
+
+@app.route('/usuarios/crear', methods=['GET', 'POST'])
+def crear_usuario():
+
+    if request.method == 'POST':
+
+        nuevo_usuario = Usuario(
+
+            nombre=request.form['nombre'],
+            usuario=request.form['usuario'],
+            correo=request.form['correo'],
+            password=request.form['password'],
+            rol=request.form['rol'],
+            fecha_creacion=date.today()
+
+        )
+
+        db.session.add(nuevo_usuario)
+        db.session.commit()
+
+        return redirect('/usuarios')
+
+    return render_template('usuarios/crear_usuario.html')
+
+# =========================================
+# EDITAR USUARIO
+# =========================================
+
+@app.route('/usuarios/editar/<int:id>', methods=['GET', 'POST'])
+def editar_usuario(id):
+
+    usuario = Usuario.query.get_or_404(id)
+
+    if request.method == 'POST':
+
+        usuario.nombre = request.form['nombre']
+        usuario.usuario = request.form['usuario']
+        usuario.correo = request.form['correo']
+        usuario.password = request.form['password']
+        usuario.rol = request.form['rol']
+
+        db.session.commit()
+
+        return redirect('/usuarios')
+
+    return render_template(
+        'usuarios/editar_usuario.html',
+        usuario=usuario
+    )
+
+
+# =========================================
+# ELIMINAR USUARIO
+# =========================================
+
+@app.route('/usuarios/eliminar/<int:id>')
+def eliminar_usuario(id):
+
+    usuario = Usuario.query.get_or_404(id)
+
+    db.session.delete(usuario)
+    db.session.commit()
+
+    return redirect('/usuarios')
 # =========================================
 
 if __name__ == '__main__':
