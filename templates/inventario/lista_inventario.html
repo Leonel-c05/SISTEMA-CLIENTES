@@ -6,83 +6,126 @@ Inventario
 
 {% block content %}
 
-<h1 class="mb-4">Inventario de Productos</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<a href="/inventario/crear" class="btn btn-success mb-3">
-    Nuevo Producto
-</a>
+    <div>
 
-<table class="table table-bordered table-hover">
+        <h2 class="fw-bold">
+            📦 Inventario
+        </h2>
 
-    <thead class="table-dark">
+        <p class="text-muted mb-0">
+            Selecciona una categoría para administrar sus productos.
+        </p>
 
-        <tr>
+    </div>
 
-            <th>ID</th>
-            <th>Producto</th>
-            <th>Categoría</th>
-            <th>Stock</th>
-            <th>Precio</th>
-            <th>Estado</th>
-            <th>Acciones</th>
+    <a href="/inventario/crear" class="btn btn-success">
+        + Nuevo Producto
+    </a>
 
-        </tr>
+</div>
 
-    </thead>
+<div class="row">
 
-    <tbody>
+{% for categoria in categorias %}
 
-        {% for producto in productos %}
+    <div class="col-md-6 col-lg-4 mb-4">
 
-        <tr>
+        <div class="card shadow-sm border-0 h-100">
 
-            <td>{{ producto.id_producto }}</td>
+            <div class="card-body d-flex flex-column">
 
-            <td>{{ producto.nombre_producto }}</td>
+                <div class="text-center mb-3">
 
-            <td>{{ producto.categoria }}</td>
+                    {% if categoria.categoria == "Procesador" %}
+                        <h1>🧠</h1>
 
-            <td>{{ producto.stock }}</td>
+                    {% elif categoria.categoria == "Tarjeta Gráfica" %}
+                        <h1>🎮</h1>
 
-            <td>${{ producto.precio }}</td>
+                    {% elif categoria.categoria == "Memoria RAM" %}
+                        <h1>💾</h1>
 
-            <!-- ESTADO DEL STOCK -->
-            <td>
+                    {% elif categoria.categoria == "Almacenamiento" %}
+                        <h1>💽</h1>
 
-                {% if producto.stock <= 3 %}
+                    {% elif categoria.categoria == "Tarjeta Madre" %}
+                        <h1>🖥️</h1>
 
-                    <span class="badge bg-danger">
-                        Stock Bajo
-                    </span>
+                    {% elif categoria.categoria == "Fuente de Poder" %}
+                        <h1>⚡</h1>
 
-                {% else %}
+                    {% elif categoria.categoria == "Periféricos" %}
+                        <h1>⌨️</h1>
 
-                    <span class="badge bg-success">
-                        Disponible
-                    </span>
+                    {% elif categoria.categoria == "Pantallas" %}
+                        <h1>🖥️</h1>
 
-                {% endif %}
+                    {% elif categoria.categoria == "Accesorios" %}
+                        <h1>🔌</h1>
 
-            </td>
+                    {% else %}
+                        <h1>📦</h1>
+                    {% endif %}
 
-            <!-- ACCIONES -->
-            <td>
+                </div>
 
-                <a 
-                    href="/inventario/editar/{{ producto.id_producto }}"
-                    class="btn btn-warning btn-sm"
-                >
-                    Actualizar
-                </a>
+                <h4 class="text-center fw-bold">
 
-            </td>
+                    {{ categoria.categoria }}
 
-        </tr>
+                </h4>
 
-        {% endfor %}
+                <p class="text-center text-muted mb-2">
 
-    </tbody>
+                    Productos registrados
 
-</table>
+                </p>
+
+                <div class="text-center mb-3">
+
+                    {% if categoria.total > 0 %}
+
+                        <span class="badge bg-primary fs-6">
+
+                            {{ categoria.total }}
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-secondary fs-6">
+
+                            0
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="mt-auto">
+
+                    <a
+                        href="/inventario/categoria/{{ categoria.categoria }}"
+                        class="btn btn-primary w-100"
+                    >
+
+                        Ver productos
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endfor %}
+
+</div>
 
 {% endblock %}

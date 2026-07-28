@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
+from datetime import date
 
 app = Flask(__name__)
 
@@ -68,6 +70,7 @@ class Inventario(db.Model):
     id_producto = db.Column(db.Integer, primary_key=True)
 
     nombre_producto = db.Column(db.String(100))
+    marca = db.Column(db.String(100))
     descripcion = db.Column(db.Text)
     stock = db.Column(db.Integer)
     precio = db.Column(db.Float)
@@ -258,17 +261,70 @@ def eliminar_equipo(id):
     return redirect('/equipos')
 
 # =========================================
-# LISTAR INVENTARIO
+# INVENTARIO (CATEGORÍAS)
 # =========================================
 
 @app.route('/inventario')
 def inventario():
 
-    productos = Inventario.query.all()
+    categorias_fijas = [
+        "Procesador",
+        "Tarjeta Gráfica",
+        "Memoria RAM",
+        "Almacenamiento",
+        "Tarjeta Madre",
+        "Fuente de Poder",
+        "Periféricos",
+        "Accesorios",
+        "Pantallas",
+        "Otros"
+    ]
+
+    categorias = []
+
+    for nombre in categorias_fijas:
+
+        total = Inventario.query.filter_by(
+            categoria=nombre
+        ).count()
+
+        categorias.append({
+            "categoria": nombre,
+            "total": total
+        })
 
     return render_template(
-        'inventario/lista_inventario.html',
-        productos=productos
+        "inventario/lista_inventario.html",
+        categorias=categorias
+    )
+
+# =========================================
+# PRODUCTOS DE UNA CATEGORÍA
+# =========================================
+
+@app.route('/inventario/categoria/<categoria>')
+def productos_categoria(categoria):
+
+    productos = Inventario.query.filter_by(
+        categoria=categoria
+    ).order_by(
+        Inventario.marca,
+        Inventario.nombre_producto
+    ).all()
+
+    total_productos = len(productos)
+
+    stock_bajo = sum(1 for p in productos if p.stock <= 3)
+
+    valor_total = sum(p.stock * p.precio for p in productos)
+
+    return render_template(
+        'inventario/productos_categoria.html',
+        categoria=categoria,
+        productos=productos,
+        total_productos=total_productos,
+        stock_bajo=stock_bajo,
+        valor_total=valor_total
     )
 
 # =========================================
@@ -278,25 +334,57 @@ def inventario():
 @app.route('/inventario/crear', methods=['GET', 'POST'])
 def crear_producto():
 
+    categoria = request.args.get('categoria')
+
     if request.method == 'POST':
 
         nuevo_producto = Inventario(
 
             nombre_producto=request.form['nombre_producto'],
+            marca=request.form['marca'],
             descripcion=request.form['descripcion'],
-            stock=request.form['stock'],
-            precio=request.form['precio'],
-            categoria=request.form['categoria']
+            stock=int(request.form['stock']),
+            precio=float(request.form['precio']),
+            categoria=request.form['categoria'],
+            fecha_registro=date.today()
 
         )
 
         db.session.add(nuevo_producto)
         db.session.commit()
 
-        return redirect('/inventario')
+        return redirect(f"/inventario/categoria/{request.form['categoria']}")
 
     return render_template(
-        'inventario/crear_producto.html'
+        'inventario/crear_producto.html',
+        categoria=categoria
+    )
+
+# =========================================
+# EDITAR PRODUCTO
+# =========================================
+
+@app.route('/inventario/editar/<int:id>', methods=['GET', 'POST'])
+def editar_producto(id):
+
+    producto = Inventario.query.get_or_404(id)
+
+    if request.method == 'POST':
+
+        producto.nombre_producto = request.form['nombre_producto']
+        producto.marca = request.form['marca']
+        producto.descripcion = request.form['descripcion']
+        producto.stock = int(request.form['stock'])
+        producto.precio = float(request.form['precio'])
+        producto.categoria = request.form['categoria']
+
+        db.session.commit()
+
+        return redirect(f"/inventario/categoria/{producto.categoria}")
+
+    return render_template(
+        'inventario/editar_producto.html',
+        producto=producto
     )
 
 # =========================================

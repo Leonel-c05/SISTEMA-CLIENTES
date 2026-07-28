@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ categoria }}
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+            📦 {{ categoria }}
+        </h2>
+
+        <p class="text-muted mb-0">
+            Administración de productos de esta categoría.
+        </p>
+
+    </div>
+
+    <div>
+
+        <a href="/inventario" class="btn btn-secondary">
+            ← Inventario
+        </a>
+
+        <a href="/inventario/crear?categoria={{ categoria }}" class="btn btn-success">
+            + Nuevo Producto
+        </a>
+
+    </div>
+
+</div>
+
+<div class="row mb-4">
+
+    <div class="col-md-4">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+                    Productos
+                </h6>
+
+                <h2 class="text-primary">
+                    {{ total_productos }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+                    Stock Bajo
+                </h6>
+
+                <h2 class="text-danger">
+                    {{ stock_bajo }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+                    Valor Inventario
+                </h6>
+
+                <h2 class="text-success">
+                    ${{ "%.2f"|format(valor_total) }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-body">
+
+        <input
+            type="text"
+            id="buscarProducto"
+            class="form-control mb-3"
+            placeholder="🔍 Buscar producto..."
+        >
+
+        <table class="table table-hover align-middle" id="tablaProductos">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Marca</th>
+                    <th>Producto</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th width="120">Acciones</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for producto in productos %}
+
+                <tr>
+
+                    <td>
+
+                        <strong>
+
+                            {{ producto.marca }}
+
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        {{ producto.nombre_producto }}
+
+                    </td>
+
+                    <td>
+
+                        {{ producto.stock }}
+
+                    </td>
+
+                    <td>
+
+                        ${{ "%.2f"|format(producto.precio) }}
+
+                    </td>
+
+                    <td>
+
+                        {% if producto.stock <= 3 %}
+
+                            <span class="badge bg-danger">
+
+                                Stock Bajo
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-success">
+
+                                Disponible
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="/inventario/editar/{{ producto.id_producto }}"
+                            class="btn btn-warning btn-sm w-100"
+                        >
+
+                            Actualizar
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="6" class="text-center text-muted">
+
+                        No existen productos registrados.
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+const buscador=document.getElementById("buscarProducto");
+
+buscador.addEventListener("keyup",function(){
+
+let texto=this.value.toLowerCase();
+
+let filas=document.querySelectorAll("#tablaProductos tbody tr");
+
+filas.forEach(function(fila){
+
+let contenido=fila.textContent.toLowerCase();
+
+fila.style.display=contenido.includes(texto)?"":"none";
+
+});
+
+});
+
+</script>
+
+{% endblock %}
