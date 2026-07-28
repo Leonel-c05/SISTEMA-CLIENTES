@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Detalle del Servicio
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3 class="mb-0">
+                Detalle del Servicio #{{ servicio.id_servicio }}
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <strong>Equipo:</strong><br>
+
+                    {{ servicio.equipo.marca }}
+                    {{ servicio.equipo.modelo }}
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <strong>Técnico:</strong><br>
+
+                    {{ servicio.usuario.nombre }}
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <strong>Estado:</strong><br>
+
+                    {{ servicio.estado }}
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <strong>Costo del Servicio:</strong><br>
+
+                    $ {{ servicio.costo }}
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <h5>Falla Reportada</h5>
+
+            <p>{{ servicio.falla_reportada }}</p>
+
+            <h5>Diagnóstico</h5>
+
+            <p>{{ servicio.diagnostico }}</p>
+
+            <h5>Solución</h5>
+
+            <p>{{ servicio.solucion }}</p>
+
+            <hr>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h4 class="mb-0">
+
+                    Productos Utilizados
+
+                </h4>
+
+                <a href="/servicios/{{ servicio.id_servicio }}/agregar_producto"
+                   class="btn btn-success">
+
+                    + Agregar Producto
+
+                </a>
+
+            </div>
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>Producto</th>
+
+                        <th>Marca</th>
+
+                        <th>Cantidad</th>
+
+                        <th>Subtotal</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for detalle in detalles %}
+
+                    <tr>
+
+                        <td>{{ detalle.producto.nombre_producto }}</td>
+
+                        <td>{{ detalle.producto.marca }}</td>
+
+                        <td>{{ detalle.cantidad }}</td>
+
+                        <td>$ {{ detalle.subtotal }}</td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+
+                        <td colspan="4" class="text-center">
+
+                            No hay productos agregados.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="card-footer bg-light">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <div class="card border-primary text-center">
+
+                        <div class="card-body">
+
+                            <h6 class="text-muted">
+
+                                Costo del Servicio
+
+                            </h6>
+
+                            <h3 class="text-primary">
+
+                                $ {{ servicio.costo }}
+
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card border-info text-center">
+
+                        <div class="card-body">
+
+                            <h6 class="text-muted">
+
+                                Total Productos
+
+                            </h6>
+
+                            <h3 class="text-info">
+
+                                $ {{ total_productos }}
+
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card border-success text-center">
+
+                        <div class="card-body">
+
+                            <h6 class="text-muted">
+
+                                TOTAL A PAGAR
+
+                            </h6>
+
+                            <h2 class="text-success">
+
+                                $ {{ total_pagar }}
+
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -99,6 +99,84 @@ class Usuario(db.Model):
 
     fecha_creacion = db.Column(db.Date)
 # =========================================
+# MODELO SERVICIOS TÉCNICOS
+# =========================================
+
+class ServicioTecnico(db.Model):
+
+    __tablename__ = 'servicios_tecnicos'
+
+    id_servicio = db.Column(db.Integer, primary_key=True)
+
+    id_equipo = db.Column(
+        db.Integer,
+        db.ForeignKey('equipos.id_equipo')
+    )
+
+    id_usuario = db.Column(
+        db.Integer,
+        db.ForeignKey('usuarios.id_usuario')
+    )
+
+    falla_reportada = db.Column(db.Text)
+
+    diagnostico = db.Column(db.Text)
+
+    solucion = db.Column(db.Text)
+
+    estado = db.Column(db.String(50))
+
+    fecha_ingreso = db.Column(db.Date)
+
+    fecha_entrega = db.Column(db.Date)
+
+    costo = db.Column(db.Numeric(10,2))
+
+    equipo = db.relationship(
+        'Equipo',
+        backref='servicios'
+    )
+
+    usuario = db.relationship(
+        'Usuario',
+        backref='servicios'
+    )
+# =========================================
+# MODELO DETALLE SERVICIO
+# =========================================
+
+class DetalleServicio(db.Model):
+
+    __tablename__ = 'detalle_servicio'
+
+    id_detalle = db.Column(db.Integer, primary_key=True)
+
+    id_servicio = db.Column(
+        db.Integer,
+        db.ForeignKey('servicios_tecnicos.id_servicio'),
+        nullable=False
+    )
+
+    id_producto = db.Column(
+        db.Integer,
+        db.ForeignKey('inventario.id_producto'),
+        nullable=False
+    )
+
+    cantidad = db.Column(db.Integer)
+
+    subtotal = db.Column(db.Numeric(10,2))
+
+    servicio = db.relationship(
+        'ServicioTecnico',
+        backref='detalles'
+    )
+
+    producto = db.relationship(
+        'Inventario',
+        backref='detalles'
+    )
+# =========================================
 # RUTA INICIO
 # =========================================
 
@@ -490,6 +568,197 @@ def eliminar_usuario(id):
     db.session.commit()
 
     return redirect('/usuarios')
+# =========================================
+# RUTAS SERVICIOS TÉCNICOS
+# =========================================
+
+@app.route('/servicios')
+def servicios():
+
+    servicios = ServicioTecnico.query.all()
+
+    return render_template(
+        'servicios/lista_servicios.html',
+        servicios=servicios
+    )
+# =========================================
+# CREAR SERVICIO TÉCNICO
+# =========================================
+
+@app.route('/servicios/crear', methods=['GET', 'POST'])
+def crear_servicio():
+
+    equipos = Equipo.query.all()
+
+    usuarios = Usuario.query.all()
+
+    if request.method == 'POST':
+
+        nuevo_servicio = ServicioTecnico(
+
+            id_equipo=request.form['id_equipo'],
+
+            id_usuario=request.form['id_usuario'],
+
+            falla_reportada=request.form['falla_reportada'],
+
+            diagnostico=request.form['diagnostico'],
+
+            solucion=request.form['solucion'],
+
+            estado=request.form['estado'],
+
+            fecha_ingreso=request.form['fecha_ingreso'],
+
+            fecha_entrega=request.form['fecha_entrega'],
+
+            costo=request.form['costo']
+
+        )
+
+        db.session.add(nuevo_servicio)
+
+        db.session.commit()
+
+        return redirect('/servicios')
+
+    return render_template(
+
+        'servicios/crear_servicio.html',
+
+        equipos=equipos,
+
+        usuarios=usuarios
+
+    )
+# =========================================
+# EDITAR SERVICIO TÉCNICO
+# =========================================
+
+@app.route('/servicios/editar/<int:id>', methods=['GET', 'POST'])
+def editar_servicio(id):
+
+    servicio = ServicioTecnico.query.get_or_404(id)
+
+    equipos = Equipo.query.all()
+
+    usuarios = Usuario.query.all()
+
+    if request.method == 'POST':
+
+        servicio.id_equipo = request.form['id_equipo']
+
+        servicio.id_usuario = request.form['id_usuario']
+
+        servicio.falla_reportada = request.form['falla_reportada']
+
+        servicio.diagnostico = request.form['diagnostico']
+
+        servicio.solucion = request.form['solucion']
+
+        servicio.estado = request.form['estado']
+
+        servicio.fecha_ingreso = request.form['fecha_ingreso']
+
+        servicio.fecha_entrega = request.form['fecha_entrega']
+
+        servicio.costo = request.form['costo']
+
+        db.session.commit()
+
+        return redirect('/servicios')
+
+    return render_template(
+        'servicios/editar_servicio.html',
+        servicio=servicio,
+        equipos=equipos,
+        usuarios=usuarios
+    )
+# =========================================
+# VER SERVICIO
+# =========================================
+
+@app.route('/servicios/ver/<int:id>')
+def ver_servicio(id):
+
+    servicio = ServicioTecnico.query.get_or_404(id)
+
+    detalles = DetalleServicio.query.filter_by(
+        id_servicio=id
+    ).all()
+
+    total_productos = sum(
+        float(detalle.subtotal)
+        for detalle in detalles
+    )
+
+    total_pagar = float(servicio.costo) + total_productos
+
+    return render_template(
+
+        'servicios/ver_servicio.html',
+
+        servicio=servicio,
+
+        detalles=detalles,
+
+        total_productos=total_productos,
+
+        total_pagar=total_pagar
+
+    )
+# =========================================
+# AGREGAR PRODUCTO A SERVICIO
+# =========================================
+
+@app.route('/servicios/<int:id>/agregar_producto', methods=['GET', 'POST'])
+def agregar_producto(id):
+
+    servicio = ServicioTecnico.query.get_or_404(id)
+
+    productos = Inventario.query.all()
+
+    if request.method == 'POST':
+
+        producto = Inventario.query.get(request.form['id_producto'])
+
+        cantidad = int(request.form['cantidad'])
+
+        if cantidad > producto.stock:
+
+            return "Stock insuficiente"
+
+        subtotal = cantidad * float(producto.precio)
+
+        detalle = DetalleServicio(
+
+            id_servicio=id,
+
+            id_producto=producto.id_producto,
+
+            cantidad=cantidad,
+
+            subtotal=subtotal
+
+        )
+
+        producto.stock -= cantidad
+
+        db.session.add(detalle)
+
+        db.session.commit()
+
+        return redirect(f'/servicios/ver/{id}')
+
+    return render_template(
+
+        'servicios/agregar_producto.html',
+
+        servicio=servicio,
+
+        productos=productos
+
+    )
 # =========================================
 
 if __name__ == '__main__':

@@ -6,11 +6,78 @@ Inicio
 
 {% block content %}
 
-<h1>Bienvenido al Sistema Técnico</h1>
+<div class="container mt-4">
 
-<p>
-    Sistema web para la gestión de clientes, 
-    equipos en servicio técnico e inventario.
-</p>
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold">
+
+            Sistema de Gestión de Servicio Técnico
+
+        </h1>
+
+        <p class="text-muted">
+
+            Bienvenido. Seleccione el módulo al que desea acceder.
+
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4">
+
+            <a href="/clientes" class="btn btn-primary w-100 py-4">
+
+                👥 Clientes
+
+            </a>
+
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+
+            <a href="/equipos" class="btn btn-success w-100 py-4">
+
+                💻 Equipos
+
+            </a>
+
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+
+            <a href="/inventario" class="btn btn-warning w-100 py-4">
+
+                📦 Inventario
+
+            </a>
+
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+
+            <a href="/usuarios" class="btn btn-dark w-100 py-4">
+
+                👨‍🔧 Usuarios
+
+            </a>
+
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+
+            <a href="/servicios" class="btn btn-info text-white w-100 py-4">
+
+                🛠 Servicios Técnicos
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

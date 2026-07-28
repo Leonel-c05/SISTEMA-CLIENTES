@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Agregar Producto
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-success text-white">
+
+            <h4 class="mb-0">
+
+                📦 Agregar Producto al Servicio #{{ servicio.id_servicio }}
+
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Producto
+
+                    </label>
+
+                    <select
+                        name="id_producto"
+                        class="form-select"
+                        required
+                    >
+
+                        <option value="">
+
+                            Seleccione un producto
+
+                        </option>
+
+                        {% for producto in productos %}
+
+                        <option value="{{ producto.id_producto }}">
+
+                            {{ producto.nombre_producto }}
+                            -
+                            {{ producto.marca }}
+                            (Stock: {{ producto.stock }})
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Cantidad
+
+                    </label>
+
+                    <input
+                        type="number"
+                        name="cantidad"
+                        min="1"
+                        class="form-control"
+                        required
+                    >
+
+                </div>
+
+                <div class="d-flex gap-2">
+
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                    >
+
+                        Agregar Producto
+
+                    </button>
+
+                    <a
+                        href="/servicios/ver/{{ servicio.id_servicio }}"
+                        class="btn btn-secondary"
+                    >
+
+                        Cancelar
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
