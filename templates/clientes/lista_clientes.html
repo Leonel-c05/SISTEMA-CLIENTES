@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Clientes
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Lista de Clientes</h1>
+
+<a href="/clientes/crear" class="btn btn-success mb-3">
+    Nuevo Cliente
+</a>
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>ID</th>
+            <th>Cédula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for cliente in clientes %}
+
+        <tr>
+
+            <td>{{ cliente.id_cliente }}</td>
+            <td>{{ cliente.cedula }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.apellido }}</td>
+            <td>{{ cliente.telefono }}</td>
+            <td>{{ cliente.correo }}</td>
+
+            <td>
+
+                <div class="d-flex gap-2">
+
+                    <!-- BOTON EDITAR -->
+                    <a 
+                        href="/clientes/editar/{{ cliente.id_cliente }}"
+                        class="btn btn-warning btn-sm"
+                    >
+                        Editar
+                    </a>
+
+                    <!-- BOTON ELIMINAR -->
+                    <a 
+                        href="/clientes/eliminar/{{ cliente.id_cliente }}"
+                        class="btn btn-danger btn-sm"
+                        onclick="return confirm('¿Deseas eliminar este cliente?')"
+                    >
+                        Eliminar
+                    </a>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

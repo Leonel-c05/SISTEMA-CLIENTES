@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Editar Equipo
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Editar Equipo</h1>
+
+<form method="POST">
+
+    <!-- CLIENTE -->
+    <div class="mb-3">
+
+        <label>Cliente</label>
+
+        <select name="id_cliente" class="form-select" required>
+
+            {% for cliente in clientes %}
+
+            <option 
+                value="{{ cliente.id_cliente }}"
+                {% if cliente.id_cliente == equipo.id_cliente %}
+                    selected
+                {% endif %}
+            >
+
+                {{ cliente.nombre }}
+                {{ cliente.apellido }}
+
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </div>
+
+    <!-- TIPO -->
+    <div class="mb-3">
+
+        <label>Tipo de Equipo</label>
+
+        <input 
+            type="text"
+            name="tipo_equipo"
+            class="form-control"
+            value="{{ equipo.tipo_equipo }}"
+            required
+        >
+
+    </div>
+
+    <!-- MARCA -->
+    <div class="mb-3">
+
+        <label>Marca</label>
+
+        <input 
+            type="text"
+            name="marca"
+            class="form-control"
+            value="{{ equipo.marca }}"
+            required
+        >
+
+    </div>
+
+    <!-- MODELO -->
+    <div class="mb-3">
+
+        <label>Modelo</label>
+
+        <input 
+            type="text"
+            name="modelo"
+            class="form-control"
+            value="{{ equipo.modelo }}"
+        >
+
+    </div>
+
+    <!-- SERIE -->
+    <div class="mb-3">
+
+        <label>Número de Serie</label>
+
+        <input 
+            type="text"
+            name="numero_serie"
+            class="form-control"
+            value="{{ equipo.numero_serie }}"
+        >
+
+    </div>
+
+    <!-- OBSERVACIONES -->
+    <div class="mb-3">
+
+        <label>Observaciones</label>
+
+        <textarea 
+            name="observaciones"
+            class="form-control"
+        >{{ equipo.observaciones }}</textarea>
+
+    </div>
+
+    <!-- ESTADO -->
+    <div class="mb-3">
+
+        <label>Estado</label>
+
+        <select name="estado" class="form-select">
+
+            <option value="Recibido"
+                {% if equipo.estado == 'Recibido' %}selected{% endif %}
+            >
+                Recibido
+            </option>
+
+            <option value="En revisión"
+                {% if equipo.estado == 'En revisión' %}selected{% endif %}
+            >
+                En revisión
+            </option>
+
+            <option value="Reparando"
+                {% if equipo.estado == 'Reparando' %}selected{% endif %}
+            >
+                Reparando
+            </option>
+
+            <option value="Entregado"
+                {% if equipo.estado == 'Entregado' %}selected{% endif %}
+            >
+                Entregado
+            </option>
+
+        </select>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Actualizar Equipo
+    </button>
+
+</form>
+
+{% endblock %}

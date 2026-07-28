@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Registrar Cliente
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Registrar Cliente</h1>
+
+<form method="POST">
+
+    <div class="mb-3">
+        <label>Cédula</label>
+        <input type="text" name="cedula" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input type="text" name="nombre" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Apellido</label>
+        <input type="text" name="apellido" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Teléfono</label>
+        <input type="text" name="telefono" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Dirección</label>
+        <input type="text" name="direccion" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Correo</label>
+        <input type="email" name="correo" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Guardar Cliente
+    </button>
+
+</form>
+
+{% endblock %}
