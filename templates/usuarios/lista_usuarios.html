@@ -6,100 +6,149 @@ Usuarios
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="max-w-7xl mx-auto">
 
-    <div>
+    <div class="flex items-center justify-between mb-6">
 
-        <h2 class="fw-bold">
-            👤 Usuarios
-        </h2>
+        <div>
 
-        <p class="text-muted mb-0">
-            Gestión de usuarios del sistema.
-        </p>
+            <h1 class="text-2xl font-semibold text-slate-800">
+
+                Usuarios
+
+            </h1>
+
+            <p class="mt-1 text-sm text-slate-500">
+
+                Gestión de usuarios del sistema.
+
+            </p>
+
+        </div>
+
+        <a
+            href="/usuarios/crear"
+            class="px-4 py-2.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition"
+        >
+
+            Nuevo Usuario
+
+        </a>
 
     </div>
 
-    <a href="/usuarios/crear" class="btn btn-success">
-        + Nuevo Usuario
-    </a>
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
 
-</div>
+        <table class="w-full">
 
-<div class="card shadow-sm border-0">
-
-    <div class="card-body">
-
-        <table class="table table-hover align-middle">
-
-            <thead class="table-dark">
+            <thead class="bg-slate-800 text-white">
 
                 <tr>
 
-                    <th>Nombre</th>
-                    <th>Usuario</th>
-                    <th>Correo</th>
-                    <th>Rol</th>
-                    <th width="120">Acciones</th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Nombre
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Usuario
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Correo
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Rol
+
+                    </th>
+
+                    <th class="px-6 py-4 text-center text-sm font-semibold">
+
+                        Acciones
+
+                    </th>
 
                 </tr>
 
             </thead>
 
-            <tbody>
+            <tbody class="divide-y divide-slate-200">
 
-            {% for usuario in usuarios %}
+                {% for usuario in usuarios %}
 
-                <tr>
+                <tr class="hover:bg-slate-50">
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700">
 
                         {{ usuario.nombre }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700">
 
                         {{ usuario.usuario }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700">
 
                         {{ usuario.correo }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4">
 
-                        <span class="badge bg-primary">
+                        {% if usuario.rol == "Administrador" %}
 
-                            {{ usuario.rol }}
+                        <span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
+
+                            Administrador
 
                         </span>
 
+                        {% else %}
+
+                        <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+
+                            Técnico
+
+                        </span>
+
+                        {% endif %}
+
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4">
 
-                        <a
-                            href="/usuarios/editar/{{ usuario.id_usuario }}"
-                            class="btn btn-warning btn-sm w-100"
-                        >
+                        <div class="flex justify-center">
 
-                            Actualizar
+                            <a
+                                href="/usuarios/editar/{{ usuario.id_usuario }}"
+                                class="px-3 py-2 text-sm border border-slate-300 rounded-lg hover:bg-slate-100 transition"
+                            >
 
-                        </a>
+                                Editar
+
+                            </a>
+
+                        </div>
 
                     </td>
 
                 </tr>
 
-            {% else %}
+                {% else %}
 
                 <tr>
 
-                    <td colspan="5" class="text-center text-muted">
+                    <td colspan="5" class="py-10 text-center text-slate-500">
 
                         No existen usuarios registrados.
 
@@ -107,7 +156,7 @@ Usuarios
 
                 </tr>
 
-            {% endfor %}
+                {% endfor %}
 
             </tbody>
 

@@ -1,101 +1,184 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Nuevo Producto
+Registrar Producto
 {% endblock %}
 
 {% block content %}
 
-<h1 class="mb-4">Registrar Producto</h1>
+<div class="max-w-3xl mx-auto">
 
-<form method="POST">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm">
 
-    <!-- PRODUCTO -->
-    <div class="mb-3">
-        <label class="form-label">Nombre del Producto</label>
-        <input
-            type="text"
-            name="nombre_producto"
-            class="form-control"
-            required
-        >
+        <div class="border-b border-slate-200 px-8 py-6">
+
+            <h1 class="text-2xl font-semibold text-slate-800">
+
+                Registrar Producto
+
+            </h1>
+
+            <p class="mt-1 text-sm text-slate-500">
+
+                Ingrese la información del nuevo producto.
+
+            </p>
+
+        </div>
+
+        <form method="POST" class="p-8 space-y-6">
+
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Nombre del Producto
+
+                </label>
+
+                <input
+                    type="text"
+                    name="nombre_producto"
+                    placeholder="Ingrese el nombre del producto"
+                    required
+                    class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                >
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Marca
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="marca"
+                        placeholder="Ej. ASUS"
+                        required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Categoría
+
+                    </label>
+
+                    <select
+                        name="categoria"
+                        required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                        <option value="">Seleccione una categoría</option>
+
+                        <option value="Memoria RAM">Memoria RAM</option>
+                        <option value="Almacenamiento">Almacenamiento</option>
+                        <option value="Procesador">Procesador</option>
+                        <option value="Tarjeta Gráfica">Tarjeta Gráfica</option>
+                        <option value="Tarjeta Madre">Tarjeta Madre</option>
+                        <option value="Fuente de Poder">Fuente de Poder</option>
+                        <option value="Periféricos">Periféricos</option>
+                        <option value="Accesorios">Accesorios</option>
+                        <option value="Pantallas">Pantallas</option>
+                        <option value="Otros">Otros</option>
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Stock
+
+                    </label>
+
+                    <input
+                        type="number"
+                        name="stock"
+                        min="0"
+                        required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Precio
+
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        name="precio"
+                        required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Descripción
+
+                </label>
+
+                <textarea
+                    name="descripcion"
+                    rows="4"
+                    placeholder="Ingrese una descripción del producto..."
+                    class="w-full rounded-lg border border-slate-300 px-4 py-3 resize-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                ></textarea>
+
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
+
+                <a
+                    href="/inventario"
+                    class="px-5 py-2.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition"
+                >
+
+                    Cancelar
+
+                </a>
+
+                <button
+                    type="submit"
+                    class="px-5 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition"
+                >
+
+                    Guardar Producto
+
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
 
-    <!-- MARCA -->
-    <div class="mb-3">
-        <label class="form-label">Marca</label>
-        <input
-            type="text"
-            name="marca"
-            class="form-control"
-            placeholder="Ejemplo: ASUS, MSI, Kingston, AMD..."
-            required
-        >
-    </div>
-
-    <!-- DESCRIPCIÓN -->
-    <div class="mb-3">
-        <label class="form-label">Descripción</label>
-        <textarea
-            name="descripcion"
-            class="form-control"
-            rows="3"
-        ></textarea>
-    </div>
-
-    <!-- CATEGORÍA -->
-    <div class="mb-3">
-        <label class="form-label">Categoría</label>
-
-        <select
-            name="categoria"
-            class="form-select"
-            required
-        >
-
-            <option value="">Seleccione una categoría</option>
-
-            <option value="Memoria RAM">Memoria RAM</option>
-            <option value="Almacenamiento">Almacenamiento</option>
-            <option value="Procesador">Procesador</option>
-            <option value="Tarjeta Gráfica">Tarjeta Gráfica</option>
-            <option value="Tarjeta Madre">Tarjeta Madre</option>
-            <option value="Fuente de Poder">Fuente de Poder</option>
-            <option value="Periféricos">Periféricos</option>
-            <option value="Accesorios">Accesorios</option>
-            <option value="Pantallas">Pantallas</option>
-            <option value="Otros">Otros</option>
-
-        </select>
-    </div>
-
-    <!-- STOCK -->
-    <div class="mb-3">
-        <label class="form-label">Stock</label>
-        <input
-            type="number"
-            name="stock"
-            class="form-control"
-            required
-        >
-    </div>
-
-    <!-- PRECIO -->
-    <div class="mb-3">
-        <label class="form-label">Precio</label>
-        <input
-            type="number"
-            step="0.01"
-            name="precio"
-            class="form-control"
-            required
-        >
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-        Guardar Producto
-    </button>
-
-</form>
+</div>
 
 {% endblock %}

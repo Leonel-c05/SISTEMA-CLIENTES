@@ -6,104 +6,110 @@ Agregar Producto
 
 {% block content %}
 
-<div class="container">
+<div class="max-w-3xl mx-auto">
 
-    <div class="card shadow-sm border-0">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm">
 
-        <div class="card-header bg-success text-white">
+        <div class="border-b border-slate-200 px-8 py-6">
 
-            <h4 class="mb-0">
+            <h1 class="text-2xl font-semibold text-slate-800">
 
-                📦 Agregar Producto al Servicio #{{ servicio.id_servicio }}
+                Agregar Producto
 
-            </h4>
+            </h1>
 
-        </div>
+            <p class="mt-1 text-sm text-slate-500">
 
-        <div class="card-body">
+                Servicio Técnico #{{ servicio.id_servicio }}
 
-            <form method="POST">
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Producto
-
-                    </label>
-
-                    <select
-                        name="id_producto"
-                        class="form-select"
-                        required
-                    >
-
-                        <option value="">
-
-                            Seleccione un producto
-
-                        </option>
-
-                        {% for producto in productos %}
-
-                        <option value="{{ producto.id_producto }}">
-
-                            {{ producto.nombre_producto }}
-                            -
-                            {{ producto.marca }}
-                            (Stock: {{ producto.stock }})
-
-                        </option>
-
-                        {% endfor %}
-
-                    </select>
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Cantidad
-
-                    </label>
-
-                    <input
-                        type="number"
-                        name="cantidad"
-                        min="1"
-                        class="form-control"
-                        required
-                    >
-
-                </div>
-
-                <div class="d-flex gap-2">
-
-                    <button
-                        type="submit"
-                        class="btn btn-success"
-                    >
-
-                        Agregar Producto
-
-                    </button>
-
-                    <a
-                        href="/servicios/ver/{{ servicio.id_servicio }}"
-                        class="btn btn-secondary"
-                    >
-
-                        Cancelar
-
-                    </a>
-
-                </div>
-
-            </form>
+            </p>
 
         </div>
+
+        <form method="POST" class="p-8 space-y-6">
+
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Producto
+
+                </label>
+
+                <select
+                    name="id_producto"
+                    required
+                    class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                >
+
+                    <option value="">
+
+                        Seleccione un producto
+
+                    </option>
+
+                    {% for producto in productos %}
+
+                    <option value="{{ producto.id_producto }}">
+
+                        {{ producto.nombre_producto }}
+                        |
+                        {{ producto.marca }}
+                        |
+                        Stock: {{ producto.stock }}
+                        |
+                        ${{ "%.2f"|format(producto.precio) }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Cantidad
+
+                </label>
+
+                <input
+                    type="number"
+                    name="cantidad"
+                    min="1"
+                    placeholder="Ingrese la cantidad"
+                    required
+                    class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                >
+
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
+
+                <a
+                    href="/servicios/ver/{{ servicio.id_servicio }}"
+                    class="px-5 py-2.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition"
+                >
+
+                    Cancelar
+
+                </a>
+
+                <button
+                    type="submit"
+                    class="px-5 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition"
+                >
+
+                    Agregar Producto
+
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
 

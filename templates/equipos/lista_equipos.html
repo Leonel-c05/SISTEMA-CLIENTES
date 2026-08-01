@@ -6,81 +6,183 @@ Equipos
 
 {% block content %}
 
-<h1 class="mb-4">Equipos en Servicio Técnico</h1>
+<div class="max-w-7xl mx-auto">
 
-<a href="/equipos/crear" class="btn btn-success mb-3">
-    Nuevo Equipo
-</a>
+    <div class="flex items-center justify-between mb-6">
 
-<table class="table table-bordered table-hover">
+        <div>
 
-    <thead class="table-dark">
+            <h1 class="text-2xl font-semibold text-slate-800">
 
-        <tr>
+                Equipos
 
-            <th>ID</th>
-            <th>Cliente</th>
-            <th>Tipo</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Serie</th>
-            <th>Estado</th>
-            <th>Acciones</th>
+            </h1>
 
-        </tr>
+            <p class="mt-1 text-sm text-slate-500">
 
-    </thead>
+                Gestión de equipos registrados en el servicio técnico.
 
-    <tbody>
+            </p>
 
-        {% for equipo in equipos %}
+        </div>
 
-        <tr>
+        <a
+            href="/equipos/crear"
+            class="px-4 py-2.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition"
+        >
 
-            <td>{{ equipo.id_equipo }}</td>
+            Nuevo Equipo
 
-            <td>
-                {{ equipo.cliente.nombre }}
-                {{ equipo.cliente.apellido }}
-            </td>
+        </a>
 
-            <td>{{ equipo.tipo_equipo }}</td>
-            <td>{{ equipo.marca }}</td>
-            <td>{{ equipo.modelo }}</td>
-            <td>{{ equipo.numero_serie }}</td>
-            <td>{{ equipo.estado }}</td>
+    </div>
 
-            <td>
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
 
-                <div class="d-flex gap-2">
+        <table class="w-full">
 
-                    <!-- BOTON EDITAR -->
-                    <a 
-                        href="/equipos/editar/{{ equipo.id_equipo }}"
-                        class="btn btn-warning btn-sm"
-                    >
-                        Editar
-                    </a>
+            <thead class="bg-slate-800 text-white">
 
-                    <!-- BOTON ELIMINAR -->
-                    <a 
-                        href="/equipos/eliminar/{{ equipo.id_equipo }}"
-                        class="btn btn-danger btn-sm"
-                        onclick="return confirm('¿Deseas eliminar este equipo?')"
-                    >
-                        Eliminar
-                    </a>
+                <tr>
 
-                </div>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        ID
+                    </th>
 
-            </td>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        Cliente
+                    </th>
 
-        </tr>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        Tipo
+                    </th>
 
-        {% endfor %}
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        Marca
+                    </th>
 
-    </tbody>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        Modelo
+                    </th>
 
-</table>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        Serie
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                        Estado
+                    </th>
+
+                    <th class="px-6 py-4 text-center text-sm font-semibold">
+                        Acciones
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody class="divide-y divide-slate-200">
+
+                {% for equipo in equipos %}
+
+                <tr class="hover:bg-slate-50 transition">
+
+                    <td class="px-6 py-4 text-sm text-slate-700">
+
+                        {{ equipo.id_equipo }}
+
+                    </td>
+
+                    <td class="px-6 py-4 text-sm text-slate-700">
+
+                        {{ equipo.cliente.nombre }}
+                        {{ equipo.cliente.apellido }}
+
+                    </td>
+
+                    <td class="px-6 py-4 text-sm text-slate-700">
+
+                        {{ equipo.tipo_equipo }}
+
+                    </td>
+
+                    <td class="px-6 py-4 text-sm text-slate-700">
+
+                        {{ equipo.marca }}
+
+                    </td>
+
+                    <td class="px-6 py-4 text-sm text-slate-700">
+
+                        {{ equipo.modelo }}
+
+                    </td>
+
+                    <td class="px-6 py-4 text-sm text-slate-700">
+
+                        {{ equipo.numero_serie }}
+
+                    </td>
+
+                    <td class="px-6 py-4 text-sm">
+
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700">
+
+                            {{ equipo.estado }}
+
+                        </span>
+
+                    </td>
+
+                    <td class="px-6 py-4">
+
+                        <div class="flex justify-center gap-2">
+
+                            <a
+                                href="/equipos/editar/{{ equipo.id_equipo }}"
+                                class="px-3 py-2 text-sm border border-slate-300 rounded-lg hover:bg-slate-100 transition"
+                            >
+
+                                Editar
+
+                            </a>
+
+                            <a
+                                href="/equipos/eliminar/{{ equipo.id_equipo }}"
+                                onclick="return confirm('¿Desea eliminar este equipo?')"
+                                class="px-3 py-2 text-sm border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition"
+                            >
+
+                                Eliminar
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="8" class="py-10 text-center text-slate-500">
+
+                        No existen equipos registrados.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
 {% endblock %}

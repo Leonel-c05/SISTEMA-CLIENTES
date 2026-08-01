@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from datetime import date
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
@@ -87,17 +88,24 @@ class Usuario(db.Model):
 
     id_usuario = db.Column(db.Integer, primary_key=True)
 
-    nombre = db.Column(db.String(100))
+    nombre = db.Column(db.String(100), nullable=False)
 
-    usuario = db.Column(db.String(100))
+    usuario = db.Column(db.String(100), unique=True, nullable=False)
 
-    correo = db.Column(db.String(100))
+    correo = db.Column(db.String(100), unique=True, nullable=False)
 
-    password = db.Column(db.String(255))
+    password = db.Column(db.String(255), nullable=False)
 
-    rol = db.Column(db.String(50))
+    rol = db.Column(db.String(50), nullable=False)
 
     fecha_creacion = db.Column(db.Date)
+
+    def establecer_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def verificar_password(self, password):
+        return check_password_hash(self.password, password)
+    
 # =========================================
 # MODELO SERVICIOS TÉCNICOS
 # =========================================

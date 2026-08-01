@@ -6,231 +6,351 @@ Detalle del Servicio
 
 {% block content %}
 
-<div class="container mt-4">
+<div class="max-w-7xl mx-auto space-y-6">
 
-    <div class="card shadow">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm">
 
-        <div class="card-header bg-primary text-white">
+        <div class="border-b border-slate-200 px-8 py-6 flex justify-between items-center">
 
-            <h3 class="mb-0">
-                Detalle del Servicio #{{ servicio.id_servicio }}
-            </h3>
+            <div>
+
+                <h1 class="text-2xl font-semibold text-slate-800">
+
+                    Detalle del Servicio #{{ servicio.id_servicio }}
+
+                </h1>
+
+                <p class="mt-1 text-sm text-slate-500">
+
+                    Información completa del servicio técnico.
+
+                </p>
+
+            </div>
+
+            <a
+                href="/servicios/{{ servicio.id_servicio }}/agregar_producto"
+                class="px-4 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition"
+            >
+
+                Agregar Producto
+
+            </a>
 
         </div>
 
-        <div class="card-body">
+        <div class="p-8">
 
-            <div class="row">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                <div class="col-md-6 mb-3">
+                <div>
 
-                    <strong>Equipo:</strong><br>
+                    <p class="text-sm text-slate-500">
 
-                    {{ servicio.equipo.marca }}
-                    {{ servicio.equipo.modelo }}
+                        Equipo
 
-                </div>
+                    </p>
 
-                <div class="col-md-6 mb-3">
+                    <p class="font-medium text-slate-800">
 
-                    <strong>Técnico:</strong><br>
+                        {{ servicio.equipo.marca }}
+                        {{ servicio.equipo.modelo }}
 
-                    {{ servicio.usuario.nombre }}
-
-                </div>
-
-                <div class="col-md-6 mb-3">
-
-                    <strong>Fecha de Ingreso:</strong><br>
-
-                    {% if servicio.fecha_ingreso %}
-                        {{ servicio.fecha_ingreso.strftime('%d/%m/%Y') }}
-                    {% else %}
-                        No registrada
-                    {% endif %}
+                    </p>
 
                 </div>
 
-                <div class="col-md-6 mb-3">
+                <div>
 
-                    <strong>Fecha de Entrega:</strong><br>
+                    <p class="text-sm text-slate-500">
 
-                    {% if servicio.fecha_entrega %}
-                        {{ servicio.fecha_entrega.strftime('%d/%m/%Y') }}
-                    {% else %}
-                        Pendiente
-                    {% endif %}
+                        Técnico
 
-                </div>
+                    </p>
 
-                <div class="col-md-6 mb-3">
+                    <p class="font-medium text-slate-800">
 
-                    <strong>Estado:</strong><br>
+                        {{ servicio.usuario.nombre }}
 
-                    {{ servicio.estado }}
+                    </p>
 
                 </div>
 
-                <div class="col-md-6 mb-3">
+                <div>
 
-                    <strong>Costo del Servicio:</strong><br>
+                    <p class="text-sm text-slate-500">
 
-                    $ {{ servicio.costo }}
+                        Estado
+
+                    </p>
+
+                    <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700">
+
+                        {{ servicio.estado }}
+
+                    </span>
+
+                </div>
+
+                <div>
+
+                    <p class="text-sm text-slate-500">
+
+                        Fecha de Ingreso
+
+                    </p>
+
+                    <p class="font-medium text-slate-800">
+
+                        {% if servicio.fecha_ingreso %}
+                            {{ servicio.fecha_ingreso.strftime('%d/%m/%Y') }}
+                        {% else %}
+                            No registrada
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+                <div>
+
+                    <p class="text-sm text-slate-500">
+
+                        Fecha de Entrega
+
+                    </p>
+
+                    <p class="font-medium text-slate-800">
+
+                        {% if servicio.fecha_entrega %}
+                            {{ servicio.fecha_entrega.strftime('%d/%m/%Y') }}
+                        {% else %}
+                            Pendiente
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+                <div>
+
+                    <p class="text-sm text-slate-500">
+
+                        Costo del Servicio
+
+                    </p>
+
+                    <p class="font-semibold text-slate-800">
+
+                        $ {{ servicio.costo }}
+
+                    </p>
 
                 </div>
 
             </div>
 
-            <hr>
+            <div class="mt-10 space-y-6">
 
-            <h5>Falla Reportada</h5>
+                <div>
 
-            <p>{{ servicio.falla_reportada }}</p>
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">
 
-            <h5>Diagnóstico</h5>
+                        Falla Reportada
 
-            <p>{{ servicio.diagnostico }}</p>
+                    </h3>
 
-            <h5>Solución</h5>
+                    <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
 
-            <p>{{ servicio.solucion }}</p>
+                        {{ servicio.falla_reportada }}
 
-            <hr>
+                    </div>
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
+                </div>
 
-                <h4 class="mb-0">
-                    Productos Utilizados
-                </h4>
+                <div>
 
-                <a href="/servicios/{{ servicio.id_servicio }}/agregar_producto"
-                   class="btn btn-success">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">
 
-                    + Agregar Producto
+                        Diagnóstico
 
-                </a>
+                    </h3>
+
+                    <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
+
+                        {{ servicio.diagnostico }}
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">
+
+                        Solución
+
+                    </h3>
+
+                    <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
+
+                        {{ servicio.solucion }}
+
+                    </div>
+
+                </div>
 
             </div>
-
-            <table class="table table-bordered table-hover">
-
-                <thead class="table-dark">
-
-                    <tr>
-
-                        <th>Producto</th>
-                        <th>Marca</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {% for detalle in detalles %}
-
-                    <tr>
-
-                        <td>{{ detalle.producto.nombre_producto }}</td>
-                        <td>{{ detalle.producto.marca }}</td>
-                        <td>{{ detalle.cantidad }}</td>
-                        <td>$ {{ detalle.subtotal }}</td>
-
-                    </tr>
-
-                    {% else %}
-
-                    <tr>
-
-                        <td colspan="4" class="text-center">
-
-                            No hay productos agregados.
-
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
 
         </div>
 
-        <div class="card-footer bg-light">
+    </div>
 
-            <div class="row">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
 
-                <div class="col-md-4">
+        <div class="px-8 py-5 border-b border-slate-200">
 
-                    <div class="card border-primary text-center">
+            <h2 class="text-xl font-semibold text-slate-800">
 
-                        <div class="card-body">
+                Productos Utilizados
 
-                            <h6 class="text-muted">
-                                Costo del Servicio
-                            </h6>
+            </h2>
 
-                            <h3 class="text-primary">
+        </div>
 
-                                $ {{ servicio.costo }}
+        <table class="w-full">
 
-                            </h3>
+            <thead class="bg-slate-800 text-white">
 
-                        </div>
+                <tr>
 
-                    </div>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
 
-                </div>
+                        Producto
 
-                <div class="col-md-4">
+                    </th>
 
-                    <div class="card border-info text-center">
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
 
-                        <div class="card-body">
+                        Marca
 
-                            <h6 class="text-muted">
-                                Total Productos
-                            </h6>
+                    </th>
 
-                            <h3 class="text-info">
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
 
-                                $ {{ total_productos }}
+                        Cantidad
 
-                            </h3>
+                    </th>
 
-                        </div>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
 
-                    </div>
+                        Subtotal
 
-                </div>
+                    </th>
 
-                <div class="col-md-4">
+                </tr>
 
-                    <div class="card border-success text-center">
+            </thead>
 
-                        <div class="card-body">
+            <tbody class="divide-y divide-slate-200">
 
-                            <h6 class="text-muted">
-                                TOTAL A PAGAR
-                            </h6>
+                {% for detalle in detalles %}
 
-                            <h2 class="text-success">
+                <tr class="hover:bg-slate-50">
 
-                                $ {{ total_pagar }}
+                    <td class="px-6 py-4 text-sm">
 
-                            </h2>
+                        {{ detalle.producto.nombre_producto }}
 
-                        </div>
+                    </td>
 
-                    </div>
+                    <td class="px-6 py-4 text-sm">
 
-                </div>
+                        {{ detalle.producto.marca }}
 
-            </div>
+                    </td>
+
+                    <td class="px-6 py-4 text-sm">
+
+                        {{ detalle.cantidad }}
+
+                    </td>
+
+                    <td class="px-6 py-4 text-sm font-medium">
+
+                        $ {{ detalle.subtotal }}
+
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="4" class="py-10 text-center text-slate-500">
+
+                        No hay productos agregados.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+            <p class="text-sm text-slate-500">
+
+                Costo del Servicio
+
+            </p>
+
+            <h2 class="mt-2 text-3xl font-semibold text-slate-800">
+
+                $ {{ servicio.costo }}
+
+            </h2>
+
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+            <p class="text-sm text-slate-500">
+
+                Total Productos
+
+            </p>
+
+            <h2 class="mt-2 text-3xl font-semibold text-slate-800">
+
+                $ {{ total_productos }}
+
+            </h2>
+
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+            <p class="text-sm text-slate-500">
+
+                Total a Pagar
+
+            </p>
+
+            <h2 class="mt-2 text-3xl font-semibold text-green-600">
+
+                $ {{ total_pagar }}
+
+            </h2>
 
         </div>
 

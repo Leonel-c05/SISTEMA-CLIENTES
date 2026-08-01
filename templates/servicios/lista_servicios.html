@@ -6,75 +6,113 @@ Servicios Técnicos
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="max-w-7xl mx-auto">
 
-    <div>
+    <div class="flex items-center justify-between mb-6">
 
-        <h2 class="fw-bold">
-            🔧 Servicios Técnicos
-        </h2>
+        <div>
 
-        <p class="text-muted mb-0">
-            Gestión de los servicios técnicos registrados.
-        </p>
+            <h1 class="text-2xl font-semibold text-slate-800">
+
+                Servicios Técnicos
+
+            </h1>
+
+            <p class="mt-1 text-sm text-slate-500">
+
+                Gestión de los servicios técnicos registrados.
+
+            </p>
+
+        </div>
+
+        <a
+            href="/servicios/crear"
+            class="px-4 py-2.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition"
+        >
+
+            Nuevo Servicio
+
+        </a>
 
     </div>
 
-    <a href="/servicios/crear" class="btn btn-success">
-        + Nuevo Servicio
-    </a>
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
 
-</div>
+        <table class="w-full">
 
-<div class="card shadow-sm border-0">
-
-    <div class="card-body">
-
-        <table class="table table-hover align-middle">
-
-            <thead class="table-dark">
+            <thead class="bg-slate-800 text-white">
 
                 <tr>
 
-                    <th>ID</th>
-                    <th>Equipo</th>
-                    <th>Técnico</th>
-                    <th>Estado</th>
-                    <th>Fecha Ingreso</th>
-                    <th width="180">Acciones</th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        ID
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Equipo
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Técnico
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Estado
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Fecha de Ingreso
+
+                    </th>
+
+                    <th class="px-6 py-4 text-center text-sm font-semibold">
+
+                        Acciones
+
+                    </th>
 
                 </tr>
 
             </thead>
 
-            <tbody>
+            <tbody class="divide-y divide-slate-200">
 
-            {% for servicio in servicios %}
+                {% for servicio in servicios %}
 
-                <tr>
+                <tr class="hover:bg-slate-50">
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700">
 
                         {{ servicio.id_servicio }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700">
 
                         {{ servicio.equipo.marca }}
                         {{ servicio.equipo.modelo }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700">
 
                         {{ servicio.usuario.nombre }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4">
 
-                        <span class="badge bg-primary">
+                        <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
 
                             {{ servicio.estado }}
 
@@ -82,41 +120,45 @@ Servicios Técnicos
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700">
 
                         {{ servicio.fecha_ingreso }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4">
 
-                        <a
-                            href="/servicios/ver/{{ servicio.id_servicio }}"
-                            class="btn btn-primary btn-sm w-100 mb-2"
-                        >
+                        <div class="flex justify-center gap-2">
 
-                            Ver
+                            <a
+                                href="/servicios/ver/{{ servicio.id_servicio }}"
+                                class="px-3 py-2 text-sm border border-slate-300 rounded-lg hover:bg-slate-100 transition"
+                            >
 
-                        </a>
+                                Ver
 
-                        <a
-                            href="/servicios/editar/{{ servicio.id_servicio }}"
-                            class="btn btn-warning btn-sm w-100"
-                        >
+                            </a>
 
-                            Actualizar
+                            <a
+                                href="/servicios/editar/{{ servicio.id_servicio }}"
+                                class="px-3 py-2 text-sm border border-slate-300 rounded-lg hover:bg-slate-100 transition"
+                            >
 
-                        </a>
+                                Editar
+
+                            </a>
+
+                        </div>
 
                     </td>
 
                 </tr>
 
-            {% else %}
+                {% else %}
 
                 <tr>
 
-                    <td colspan="6" class="text-center text-muted">
+                    <td colspan="6" class="py-10 text-center text-slate-500">
 
                         No existen servicios registrados.
 
@@ -124,7 +166,7 @@ Servicios Técnicos
 
                 </tr>
 
-            {% endfor %}
+                {% endfor %}
 
             </tbody>
 

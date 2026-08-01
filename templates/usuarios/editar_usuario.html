@@ -6,25 +6,33 @@ Editar Usuario
 
 {% block content %}
 
-<div class="container">
+<div class="max-w-3xl mx-auto">
 
-    <div class="card shadow-sm border-0">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm">
 
-        <div class="card-header bg-warning">
+        <div class="border-b border-slate-200 px-8 py-6">
 
-            <h4 class="mb-0">
-                ✏️ Editar Usuario
-            </h4>
+            <h1 class="text-2xl font-semibold text-slate-800">
+
+                Editar Usuario
+
+            </h1>
+
+            <p class="mt-1 text-sm text-slate-500">
+
+                Modifique la información del usuario.
+
+            </p>
 
         </div>
 
-        <div class="card-body">
+        <form method="POST" class="p-8 space-y-6">
 
-            <form method="POST">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <div class="mb-3">
+                <div>
 
-                    <label class="form-label">
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
 
                         Nombre Completo
 
@@ -33,16 +41,16 @@ Editar Usuario
                     <input
                         type="text"
                         name="nombre"
-                        class="form-control"
                         value="{{ usuario.nombre }}"
                         required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
                     >
 
                 </div>
 
-                <div class="mb-3">
+                <div>
 
-                    <label class="form-label">
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
 
                         Usuario
 
@@ -51,16 +59,16 @@ Editar Usuario
                     <input
                         type="text"
                         name="usuario"
-                        class="form-control"
                         value="{{ usuario.usuario }}"
                         required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
                     >
 
                 </div>
 
-                <div class="mb-3">
+                <div>
 
-                    <label class="form-label">
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
 
                         Correo Electrónico
 
@@ -69,34 +77,16 @@ Editar Usuario
                     <input
                         type="email"
                         name="correo"
-                        class="form-control"
                         value="{{ usuario.correo }}"
                         required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
                     >
 
                 </div>
 
-                <div class="mb-3">
+                <div>
 
-                    <label class="form-label">
-
-                        Contraseña
-
-                    </label>
-
-                    <input
-                        type="password"
-                        name="password"
-                        class="form-control"
-                        value="{{ usuario.password }}"
-                        required
-                    >
-
-                </div>
-
-                <div class="mb-4">
-
-                    <label class="form-label">
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
 
                         Rol
 
@@ -104,45 +94,75 @@ Editar Usuario
 
                     <select
                         name="rol"
-                        class="form-select"
                         required
+                        class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
                     >
 
-                        <option value="Administrador"
-                        {% if usuario.rol == "Administrador" %}selected{% endif %}>
+                        <option
+                            value="Administrador"
+                            {% if usuario.rol == "Administrador" %}selected{% endif %}
+                        >
+
                             Administrador
+
                         </option>
 
-                        <option value="Técnico"
-                        {% if usuario.rol == "Técnico" %}selected{% endif %}>
+                        <option
+                            value="Técnico"
+                            {% if usuario.rol == "Técnico" %}selected{% endif %}
+                        >
+
                             Técnico
+
                         </option>
 
                     </select>
 
                 </div>
 
-                <button
-                    type="submit"
-                    class="btn btn-warning"
+            </div>
+
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Contraseña
+
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    value="{{ usuario.password }}"
+                    required
+                    class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
                 >
 
-                    Actualizar Usuario
+            </div>
 
-                </button>
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
 
                 <a
                     href="/usuarios"
-                    class="btn btn-secondary"
+                    class="px-5 py-2.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition"
                 >
 
                     Cancelar
 
                 </a>
 
-            </form>
+                <button
+                    type="submit"
+                    class="px-5 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition"
+                >
 
-        </div>
+                    Actualizar Usuario
+
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
 

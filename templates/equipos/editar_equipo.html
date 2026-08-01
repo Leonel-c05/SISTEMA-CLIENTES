@@ -6,146 +6,212 @@ Editar Equipo
 
 {% block content %}
 
-<h1 class="mb-4">Editar Equipo</h1>
+<div class="max-w-3xl mx-auto">
 
-<form method="POST">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm">
 
-    <!-- CLIENTE -->
-    <div class="mb-3">
+        <div class="border-b border-slate-200 px-8 py-6">
 
-        <label>Cliente</label>
+            <h1 class="text-2xl font-semibold text-slate-800">
 
-        <select name="id_cliente" class="form-select" required>
+                Editar Equipo
 
-            {% for cliente in clientes %}
+            </h1>
 
-            <option 
-                value="{{ cliente.id_cliente }}"
-                {% if cliente.id_cliente == equipo.id_cliente %}
-                    selected
-                {% endif %}
-            >
+            <p class="mt-1 text-sm text-slate-500">
 
-                {{ cliente.nombre }}
-                {{ cliente.apellido }}
+                Actualice la información del equipo seleccionado.
 
-            </option>
+            </p>
 
-            {% endfor %}
+        </div>
 
-        </select>
+        <form method="POST" class="p-8 space-y-6">
+
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Cliente
+
+                </label>
+
+                <select
+                    name="id_cliente"
+                    required
+                    class="w-full rounded-lg border border-slate-300 px-4 py-3 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                >
+
+                    {% for cliente in clientes %}
+
+                    <option
+                        value="{{ cliente.id_cliente }}"
+                        {% if cliente.id_cliente == equipo.id_cliente %}selected{% endif %}
+                    >
+
+                        {{ cliente.nombre }} {{ cliente.apellido }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Tipo de Equipo
+
+                    </label>
+
+                    <select
+                        name="tipo_equipo"
+                        required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                        <option value="Laptop" {% if equipo.tipo_equipo == 'Laptop' %}selected{% endif %}>Laptop</option>
+
+                        <option value="Computador de Escritorio" {% if equipo.tipo_equipo == 'Computador de Escritorio' %}selected{% endif %}>Computador de Escritorio</option>
+
+                        <option value="Impresora" {% if equipo.tipo_equipo == 'Impresora' %}selected{% endif %}>Impresora</option>
+
+                        <option value="Monitor" {% if equipo.tipo_equipo == 'Monitor' %}selected{% endif %}>Monitor</option>
+
+                        <option value="All in One" {% if equipo.tipo_equipo == 'All in One' %}selected{% endif %}>All in One</option>
+
+                        <option value="Otro" {% if equipo.tipo_equipo == 'Otro' %}selected{% endif %}>Otro</option>
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Marca
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="marca"
+                        value="{{ equipo.marca }}"
+                        required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Modelo
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="modelo"
+                        value="{{ equipo.modelo }}"
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Número de Serie
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="numero_serie"
+                        value="{{ equipo.numero_serie }}"
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Observaciones
+
+                </label>
+
+                <textarea
+                    name="observaciones"
+                    rows="4"
+                    class="w-full rounded-lg border border-slate-300 px-4 py-3 resize-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                >{{ equipo.observaciones }}</textarea>
+
+            </div>
+
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Estado
+
+                </label>
+
+                <select
+                    name="estado"
+                    class="w-full rounded-lg border border-slate-300 px-4 py-3 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                >
+
+                    <option value="Recibido" {% if equipo.estado == 'Recibido' %}selected{% endif %}>Recibido</option>
+
+                    <option value="En revisión" {% if equipo.estado == 'En revisión' %}selected{% endif %}>En revisión</option>
+
+                    <option value="Reparando" {% if equipo.estado == 'Reparando' %}selected{% endif %}>Reparando</option>
+
+                    <option value="Entregado" {% if equipo.estado == 'Entregado' %}selected{% endif %}>Entregado</option>
+
+                </select>
+
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
+
+                <a
+                    href="/equipos"
+                    class="px-5 py-2.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition"
+                >
+
+                    Cancelar
+
+                </a>
+
+                <button
+                    type="submit"
+                    class="px-5 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition"
+                >
+
+                    Actualizar Equipo
+
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
 
-    <!-- TIPO -->
-    <div class="mb-3">
-
-        <label>Tipo de Equipo</label>
-
-        <input 
-            type="text"
-            name="tipo_equipo"
-            class="form-control"
-            value="{{ equipo.tipo_equipo }}"
-            required
-        >
-
-    </div>
-
-    <!-- MARCA -->
-    <div class="mb-3">
-
-        <label>Marca</label>
-
-        <input 
-            type="text"
-            name="marca"
-            class="form-control"
-            value="{{ equipo.marca }}"
-            required
-        >
-
-    </div>
-
-    <!-- MODELO -->
-    <div class="mb-3">
-
-        <label>Modelo</label>
-
-        <input 
-            type="text"
-            name="modelo"
-            class="form-control"
-            value="{{ equipo.modelo }}"
-        >
-
-    </div>
-
-    <!-- SERIE -->
-    <div class="mb-3">
-
-        <label>Número de Serie</label>
-
-        <input 
-            type="text"
-            name="numero_serie"
-            class="form-control"
-            value="{{ equipo.numero_serie }}"
-        >
-
-    </div>
-
-    <!-- OBSERVACIONES -->
-    <div class="mb-3">
-
-        <label>Observaciones</label>
-
-        <textarea 
-            name="observaciones"
-            class="form-control"
-        >{{ equipo.observaciones }}</textarea>
-
-    </div>
-
-    <!-- ESTADO -->
-    <div class="mb-3">
-
-        <label>Estado</label>
-
-        <select name="estado" class="form-select">
-
-            <option value="Recibido"
-                {% if equipo.estado == 'Recibido' %}selected{% endif %}
-            >
-                Recibido
-            </option>
-
-            <option value="En revisión"
-                {% if equipo.estado == 'En revisión' %}selected{% endif %}
-            >
-                En revisión
-            </option>
-
-            <option value="Reparando"
-                {% if equipo.estado == 'Reparando' %}selected{% endif %}
-            >
-                Reparando
-            </option>
-
-            <option value="Entregado"
-                {% if equipo.estado == 'Entregado' %}selected{% endif %}
-            >
-                Entregado
-            </option>
-
-        </select>
-
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-        Actualizar Equipo
-    </button>
-
-</form>
+</div>
 
 {% endblock %}

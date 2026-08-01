@@ -6,77 +6,84 @@ Inicio
 
 {% block content %}
 
-<div class="container mt-4">
+<div class="mb-10">
 
-    <div class="text-center mb-5">
+    <h1 class="text-3xl font-semibold text-slate-800">
+        Sistema de Gestión de Servicio Técnico
+    </h1>
 
-        <h1 class="fw-bold">
+    <p class="mt-2 text-slate-500">
+        Bienvenido al sistema. Seleccione el módulo al que desea acceder.
+    </p>
 
-            Sistema de Gestión de Servicio Técnico
+</div>
 
-        </h1>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
-        <p class="text-muted">
+    <a href="/clientes"
+       class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
 
-            Bienvenido. Seleccione el módulo al que desea acceder.
+        <h2 class="text-lg font-semibold text-slate-800">
+            Clientes
+        </h2>
 
+        <p class="mt-2 text-sm text-slate-500">
+            Gestión de clientes registrados.
         </p>
 
-    </div>
+    </a>
 
-    <div class="row g-4">
+    <a href="/equipos"
+       class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
 
-        <div class="col-md-6 col-lg-4">
+        <h2 class="text-lg font-semibold text-slate-800">
+            Equipos
+        </h2>
 
-            <a href="/clientes" class="btn btn-primary w-100 py-4">
+        <p class="mt-2 text-sm text-slate-500">
+            Administración de equipos ingresados.
+        </p>
 
-                👥 Clientes
+    </a>
 
-            </a>
+    <a href="/inventario"
+       class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
 
-        </div>
+        <h2 class="text-lg font-semibold text-slate-800">
+            Inventario
+        </h2>
 
-        <div class="col-md-6 col-lg-4">
+        <p class="mt-2 text-sm text-slate-500">
+            Control de productos y existencias.
+        </p>
 
-            <a href="/equipos" class="btn btn-success w-100 py-4">
+    </a>
 
-                💻 Equipos
+    <a href="/usuarios"
+       class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
 
-            </a>
+        <h2 class="text-lg font-semibold text-slate-800">
+            Usuarios
+        </h2>
 
-        </div>
+        <p class="mt-2 text-sm text-slate-500">
+            Administración de usuarios del sistema.
+        </p>
 
-        <div class="col-md-6 col-lg-4">
+    </a>
 
-            <a href="/inventario" class="btn btn-warning w-100 py-4">
+    <a href="/servicios"
+       class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
 
-                📦 Inventario
+        <h2 class="text-lg font-semibold text-slate-800">
+            Servicios Técnicos
+        </h2>
 
-            </a>
+        <p class="mt-2 text-sm text-slate-500">
+            Gestión de órdenes y servicios técnicos.
+        </p>
 
-        </div>
-
-        <div class="col-md-6 col-lg-6">
-
-            <a href="/usuarios" class="btn btn-dark w-100 py-4">
-
-                👨‍🔧 Usuarios
-
-            </a>
-
-        </div>
-
-        <div class="col-md-6 col-lg-6">
-
-            <a href="/servicios" class="btn btn-info text-white w-100 py-4">
-
-                🛠 Servicios Técnicos
-
-            </a>
-
-        </div>
-
-    </div>
+    </a>
 
 </div>
 

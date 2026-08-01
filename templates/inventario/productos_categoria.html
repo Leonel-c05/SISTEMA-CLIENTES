@@ -6,202 +6,237 @@
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="max-w-7xl mx-auto">
 
-    <div>
+    <div class="flex items-center justify-between mb-6">
 
-        <h2 class="fw-bold">
-            📦 {{ categoria }}
-        </h2>
+        <div>
 
-        <p class="text-muted mb-0">
-            Administración de productos de esta categoría.
-        </p>
+            <h1 class="text-2xl font-semibold text-slate-800">
 
-    </div>
+                {{ categoria }}
 
-    <div>
+            </h1>
 
-        <a href="/inventario" class="btn btn-secondary">
-            ← Inventario
-        </a>
+            <p class="mt-1 text-sm text-slate-500">
 
-        <a href="/inventario/crear?categoria={{ categoria }}" class="btn btn-success">
-            + Nuevo Producto
-        </a>
+                Administración de productos de esta categoría.
 
-    </div>
+            </p>
 
-</div>
+        </div>
 
-<div class="row mb-4">
+        <div class="flex gap-3">
 
-    <div class="col-md-4">
+            <a
+                href="/inventario"
+                class="px-4 py-2.5 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-100 transition"
+            >
 
-        <div class="card border-0 shadow-sm">
+                Volver
 
-            <div class="card-body text-center">
+            </a>
 
-                <h6 class="text-muted">
-                    Productos
-                </h6>
+            <a
+                href="/inventario/crear?categoria={{ categoria }}"
+                class="px-4 py-2.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition"
+            >
 
-                <h2 class="text-primary">
-                    {{ total_productos }}
-                </h2>
+                Nuevo Producto
 
-            </div>
+            </a>
 
         </div>
 
     </div>
 
-    <div class="col-md-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
 
-        <div class="card border-0 shadow-sm">
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6">
 
-            <div class="card-body text-center">
+            <p class="text-sm text-slate-500">
 
-                <h6 class="text-muted">
-                    Stock Bajo
-                </h6>
+                Productos
 
-                <h2 class="text-danger">
-                    {{ stock_bajo }}
-                </h2>
+            </p>
 
-            </div>
+            <h2 class="mt-2 text-3xl font-semibold text-slate-800">
+
+                {{ total_productos }}
+
+            </h2>
+
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6">
+
+            <p class="text-sm text-slate-500">
+
+                Stock Bajo
+
+            </p>
+
+            <h2 class="mt-2 text-3xl font-semibold text-red-600">
+
+                {{ stock_bajo }}
+
+            </h2>
+
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6">
+
+            <p class="text-sm text-slate-500">
+
+                Valor del Inventario
+
+            </p>
+
+            <h2 class="mt-2 text-3xl font-semibold text-slate-800">
+
+                ${{ "%.2f"|format(valor_total) }}
+
+            </h2>
 
         </div>
 
     </div>
 
-    <div class="col-md-4">
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
 
-        <div class="card border-0 shadow-sm">
+        <div class="p-6 border-b border-slate-200">
 
-            <div class="card-body text-center">
-
-                <h6 class="text-muted">
-                    Valor Inventario
-                </h6>
-
-                <h2 class="text-success">
-                    ${{ "%.2f"|format(valor_total) }}
-                </h2>
-
-            </div>
+            <input
+                id="buscarProducto"
+                type="text"
+                placeholder="Buscar producto..."
+                class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+            >
 
         </div>
 
-    </div>
+        <table class="w-full" id="tablaProductos">
 
-</div>
-
-<div class="card shadow-sm border-0">
-
-    <div class="card-body">
-
-        <input
-            type="text"
-            id="buscarProducto"
-            class="form-control mb-3"
-            placeholder="🔍 Buscar producto..."
-        >
-
-        <table class="table table-hover align-middle" id="tablaProductos">
-
-            <thead class="table-dark">
+            <thead class="bg-slate-800 text-white">
 
                 <tr>
 
-                    <th>Marca</th>
-                    <th>Producto</th>
-                    <th>Stock</th>
-                    <th>Precio</th>
-                    <th>Estado</th>
-                    <th width="120">Acciones</th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Marca
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Producto
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Stock
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Precio
+
+                    </th>
+
+                    <th class="px-6 py-4 text-left text-sm font-semibold">
+
+                        Estado
+
+                    </th>
+
+                    <th class="px-6 py-4 text-center text-sm font-semibold">
+
+                        Acciones
+
+                    </th>
 
                 </tr>
 
             </thead>
 
-            <tbody>
+            <tbody class="divide-y divide-slate-200">
 
-            {% for producto in productos %}
+                {% for producto in productos %}
 
-                <tr>
+                <tr class="hover:bg-slate-50">
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700 font-medium">
 
-                        <strong>
-
-                            {{ producto.marca }}
-
-                        </strong>
+                        {{ producto.marca }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700">
 
                         {{ producto.nombre_producto }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700">
 
                         {{ producto.stock }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4 text-sm text-slate-700">
 
                         ${{ "%.2f"|format(producto.precio) }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4">
 
                         {% if producto.stock <= 3 %}
 
-                            <span class="badge bg-danger">
+                        <span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700">
 
-                                Stock Bajo
+                            Stock Bajo
 
-                            </span>
+                        </span>
 
                         {% else %}
 
-                            <span class="badge bg-success">
+                        <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
 
-                                Disponible
+                            Disponible
 
-                            </span>
+                        </span>
 
                         {% endif %}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-4">
 
-                        <a
-                            href="/inventario/editar/{{ producto.id_producto }}"
-                            class="btn btn-warning btn-sm w-100"
-                        >
+                        <div class="flex justify-center">
 
-                            Actualizar
+                            <a
+                                href="/inventario/editar/{{ producto.id_producto }}"
+                                class="px-3 py-2 text-sm border border-slate-300 rounded-lg hover:bg-slate-100 transition"
+                            >
 
-                        </a>
+                                Actualizar
+
+                            </a>
+
+                        </div>
 
                     </td>
 
                 </tr>
 
-            {% else %}
+                {% else %}
 
                 <tr>
 
-                    <td colspan="6" class="text-center text-muted">
+                    <td colspan="6" class="py-10 text-center text-slate-500">
 
                         No existen productos registrados.
 
@@ -209,7 +244,7 @@
 
                 </tr>
 
-            {% endfor %}
+                {% endfor %}
 
             </tbody>
 
@@ -221,24 +256,25 @@
 
 <script>
 
-const buscador=document.getElementById("buscarProducto");
+const buscador = document.getElementById("buscarProducto");
 
-buscador.addEventListener("keyup",function(){
+buscador.addEventListener("keyup", function () {
 
-let texto=this.value.toLowerCase();
+    let texto = this.value.toLowerCase();
 
-let filas=document.querySelectorAll("#tablaProductos tbody tr");
+    let filas = document.querySelectorAll("#tablaProductos tbody tr");
 
-filas.forEach(function(fila){
+    filas.forEach(function (fila) {
 
-let contenido=fila.textContent.toLowerCase();
+        let contenido = fila.textContent.toLowerCase();
 
-fila.style.display=contenido.includes(texto)?"":"none";
+        fila.style.display = contenido.includes(texto) ? "" : "none";
 
-});
+    });
 
 });
 
 </script>
+
 
 {% endblock %}

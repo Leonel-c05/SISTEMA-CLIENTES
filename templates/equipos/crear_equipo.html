@@ -6,132 +6,201 @@ Registrar Equipo
 
 {% block content %}
 
-<h1 class="mb-4">Registrar Equipo</h1>
+<div class="max-w-3xl mx-auto">
 
-<form method="POST">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm">
 
-    <!-- CLIENTE -->
-    <div class="mb-3">
+        <div class="border-b border-slate-200 px-8 py-6">
 
-        <label>Cliente</label>
+            <h1 class="text-2xl font-semibold text-slate-800">
 
-        <select name="id_cliente" class="form-select" required>
+                Registrar Equipo
 
-            <option value="">
-                Seleccione un cliente
-            </option>
+            </h1>
 
-            {% for cliente in clientes %}
+            <p class="mt-1 text-sm text-slate-500">
 
-            <option value="{{ cliente.id_cliente }}">
+                Ingrese la información del equipo.
 
-                {{ cliente.nombre }}
-                {{ cliente.apellido }}
+            </p>
 
-            </option>
+        </div>
 
-            {% endfor %}
+        <form method="POST" class="p-8 space-y-6">
 
-        </select>
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Cliente
+
+                </label>
+
+                <select
+                    name="id_cliente"
+                    required
+                    class="w-full rounded-lg border border-slate-300 px-4 py-3 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                >
+
+                    <option value="">
+
+                        Seleccione un cliente
+
+                    </option>
+
+                    {% for cliente in clientes %}
+
+                    <option value="{{ cliente.id_cliente }}">
+
+                        {{ cliente.nombre }} {{ cliente.apellido }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Tipo de Equipo
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="tipo_equipo"
+                        placeholder="Ej. Laptop"
+                        required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Marca
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="marca"
+                        placeholder="Ej. HP"
+                        required
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Modelo
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="modelo"
+                        placeholder="Ej. Pavilion 15"
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                        Número de Serie
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="numero_serie"
+                        placeholder="Ingrese el número de serie"
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                    >
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Observaciones
+
+                </label>
+
+                <textarea
+                    name="observaciones"
+                    rows="4"
+                    placeholder="Ingrese observaciones del equipo..."
+                    class="w-full rounded-lg border border-slate-300 px-4 py-3 resize-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                ></textarea>
+
+            </div>
+
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-slate-700">
+
+                    Estado
+
+                </label>
+
+                <select
+                    name="estado"
+                    class="w-full rounded-lg border border-slate-300 px-4 py-3 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 outline-none transition"
+                >
+
+                    <option value="Recibido">Recibido</option>
+                    <option value="En revisión">En revisión</option>
+                    <option value="Reparando">Reparando</option>
+                    <option value="Entregado">Entregado</option>
+
+                </select>
+
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
+
+                <a
+                    href="/equipos"
+                    class="px-5 py-2.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition"
+                >
+
+                    Cancelar
+
+                </a>
+
+                <button
+                    type="submit"
+                    class="px-5 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition"
+                >
+
+                    Guardar Equipo
+
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
 
-    <!-- TIPO -->
-    <div class="mb-3">
+</div>
 
-        <label>Tipo de Equipo</label>
-
-        <input 
-            type="text"
-            name="tipo_equipo"
-            class="form-control"
-            required
-        >
-
-    </div>
-
-    <!-- MARCA -->
-    <div class="mb-3">
-
-        <label>Marca</label>
-
-        <input 
-            type="text"
-            name="marca"
-            class="form-control"
-            required
-        >
-
-    </div>
-
-    <!-- MODELO -->
-    <div class="mb-3">
-
-        <label>Modelo</label>
-
-        <input 
-            type="text"
-            name="modelo"
-            class="form-control"
-        >
-
-    </div>
-
-    <!-- SERIE -->
-    <div class="mb-3">
-
-        <label>Número de Serie</label>
-
-        <input 
-            type="text"
-            name="numero_serie"
-            class="form-control"
-        >
-
-    </div>
-
-    <!-- OBSERVACIONES -->
-    <div class="mb-3">
-
-        <label>Observaciones</label>
-
-        <textarea 
-            name="observaciones"
-            class="form-control"
-        ></textarea>
-
-    </div>
-
-    <!-- ESTADO -->
-    <div class="mb-3">
-
-        <label>Estado</label>
-
-        <select name="estado" class="form-select">
-
-            <option value="Recibido">
-                Recibido
-            </option>
-
-            <option value="En revisión">
-                En revisión
-            </option>
-
-            <option value="Reparando">
-                Reparando
-            </option>
-
-            <option value="Entregado">
-                Entregado
-            </option>
-
-        </select>
-
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-        Guardar Equipo
-    </button>
-
-</form>
 {% endblock %}
