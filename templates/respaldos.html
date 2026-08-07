@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Respaldos
+{% endblock %}
+
+{% block content %}
+
+<div class="max-w-4xl mx-auto">
+
+    <!-- ENCABEZADO -->
+
+    <div class="mb-8">
+
+        <h1 class="text-3xl font-semibold text-slate-800">
+            Respaldos
+        </h1>
+
+        <p class="mt-2 text-slate-500">
+            Generación de copias de seguridad de la base de datos.
+        </p>
+
+    </div>
+
+
+    <!-- MENSAJES -->
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- TARJETA -->
+
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
+
+        <div class="flex items-center gap-4 mb-6">
+
+            <div class="text-4xl">
+                💾
+            </div>
+
+            <div>
+
+                <h2 class="text-xl font-semibold text-slate-800">
+                    Respaldo de base de datos
+                </h2>
+
+                <p class="text-sm text-slate-500 mt-1">
+                    Base de datos: sistema_tecnico
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="border-t border-slate-200 pt-6">
+
+            <p class="text-sm text-slate-600 mb-5">
+
+                Genera una copia completa de la información
+                almacenada actualmente en el sistema.
+
+            </p>
+
+
+            <a
+                href="/respaldos/generar"
+                class="inline-flex items-center justify-center bg-slate-900 text-white px-6 py-3 rounded-lg hover:bg-slate-800 transition"
+            >
+
+                💾 Generar respaldo
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

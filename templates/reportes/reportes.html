@@ -1,0 +1,334 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Reportes Administrativos
+{% endblock %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto">
+
+    <!-- ENCABEZADO -->
+
+    <div class="flex justify-between items-center mb-8">
+
+        <div>
+
+            <h2 class="text-3xl font-semibold text-slate-800">
+                📊 Reportes Administrativos
+            </h2>
+
+            <p class="mt-2 text-slate-500">
+                Resumen general de la información registrada en el sistema.
+            </p>
+
+        </div>
+
+        <div>
+
+            <a
+                href="/"
+                class="px-5 py-3 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 transition"
+            >
+                ← Inicio
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESUMEN GENERAL -->
+
+    <div class="mb-8">
+
+        <h3 class="text-lg font-semibold text-slate-800 mb-4">
+            Resumen general
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+
+            <!-- CLIENTES -->
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p class="text-sm text-slate-500">
+                            Clientes registrados
+                        </p>
+
+                        <p class="mt-2 text-3xl font-semibold text-slate-800">
+                            {{ total_clientes }}
+                        </p>
+
+                    </div>
+
+                    <div class="text-3xl">
+                        👥
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EQUIPOS -->
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p class="text-sm text-slate-500">
+                            Equipos registrados
+                        </p>
+
+                        <p class="mt-2 text-3xl font-semibold text-slate-800">
+                            {{ total_equipos }}
+                        </p>
+
+                    </div>
+
+                    <div class="text-3xl">
+                        💻
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SERVICIOS -->
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p class="text-sm text-slate-500">
+                            Servicios técnicos
+                        </p>
+
+                        <p class="mt-2 text-3xl font-semibold text-slate-800">
+                            {{ total_servicios }}
+                        </p>
+
+                    </div>
+
+                    <div class="text-3xl">
+                        🔧
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SERVICIOS PENDIENTES -->
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p class="text-sm text-slate-500">
+                            Servicios pendientes
+                        </p>
+
+                        <p class="mt-2 text-3xl font-semibold text-orange-600">
+                            {{ servicios_pendientes }}
+                        </p>
+
+                    </div>
+
+                    <div class="text-3xl">
+                        ⏳
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCTOS -->
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p class="text-sm text-slate-500">
+                            Productos registrados
+                        </p>
+
+                        <p class="mt-2 text-3xl font-semibold text-slate-800">
+                            {{ total_productos }}
+                        </p>
+
+                    </div>
+
+                    <div class="text-3xl">
+                        📦
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STOCK BAJO -->
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p class="text-sm text-slate-500">
+                            Productos con stock bajo
+                        </p>
+
+                        <p class="mt-2 text-3xl font-semibold text-red-600">
+                            {{ stock_bajo }}
+                        </p>
+
+                    </div>
+
+                    <div class="text-3xl">
+                        ⚠️
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- INFORMACIÓN ECONÓMICA -->
+
+    <div class="mb-8">
+
+        <h3 class="text-lg font-semibold text-slate-800 mb-4">
+            Información económica
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+
+            <!-- INGRESOS SERVICIOS -->
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+                <p class="text-sm text-slate-500">
+                    Ingresos por servicios
+                </p>
+
+                <p class="mt-2 text-3xl font-semibold text-slate-800">
+
+                    ${{ "%.2f"|format(ingresos_servicios) }}
+
+                </p>
+
+            </div>
+
+
+            <!-- PRODUCTOS UTILIZADOS -->
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+                <p class="text-sm text-slate-500">
+                    Productos utilizados
+                </p>
+
+                <p class="mt-2 text-3xl font-semibold text-slate-800">
+
+                    ${{ "%.2f"|format(total_productos_utilizados) }}
+
+                </p>
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="bg-slate-800 rounded-xl shadow-sm p-6">
+
+                <p class="text-sm text-slate-300">
+                    Total registrado
+                </p>
+
+                <p class="mt-2 text-3xl font-semibold text-white">
+
+                    ${{ "%.2f"|format(total_ingresos) }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- GENERACIÓN DE REPORTES -->
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm">
+
+        <div class="p-6 border-b border-slate-200">
+
+            <h3 class="text-lg font-semibold text-slate-800">
+                Generación de reportes
+            </h3>
+
+            <p class="mt-1 text-sm text-slate-500">
+                Genera un documento PDF con el resumen administrativo del sistema.
+            </p>
+
+        </div>
+
+        <div class="p-6">
+
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+                <div>
+
+                    <p class="font-medium text-slate-800">
+                        Reporte administrativo general
+                    </p>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Incluye clientes, equipos, servicios, inventario e información económica.
+                    </p>
+
+                </div>
+
+                <a
+                    href="/reportes/pdf"
+                    target="_blank"
+                    class="inline-flex justify-center items-center px-6 py-3 rounded-lg bg-slate-800 text-white hover:bg-slate-700 transition"
+                >
+
+                    📄 Generar PDF
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -6,7 +6,9 @@ Inicio
 
 {% block content %}
 
-<div class="mb-10">
+<!-- ENCABEZADO -->
+
+<div class="mb-8">
 
     <h1 class="text-3xl font-semibold text-slate-800">
         Sistema de Gestión de Servicio Técnico
@@ -18,10 +20,18 @@ Inicio
 
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
-    <a href="/clientes"
-       class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
+<!-- MÓDULOS -->
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+
+    <!-- CLIENTES -->
+
+    <a
+        href="/clientes"
+        class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
+    >
 
         <h2 class="text-lg font-semibold text-slate-800">
             Clientes
@@ -33,8 +43,13 @@ Inicio
 
     </a>
 
-    <a href="/equipos"
-       class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
+
+    <!-- EQUIPOS -->
+
+    <a
+        href="/equipos"
+        class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
+    >
 
         <h2 class="text-lg font-semibold text-slate-800">
             Equipos
@@ -46,8 +61,13 @@ Inicio
 
     </a>
 
-    <a href="/inventario"
-       class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
+
+    <!-- INVENTARIO -->
+
+    <a
+        href="/inventario"
+        class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
+    >
 
         <h2 class="text-lg font-semibold text-slate-800">
             Inventario
@@ -59,21 +79,35 @@ Inicio
 
     </a>
 
-    <a href="/usuarios"
-       class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
 
-        <h2 class="text-lg font-semibold text-slate-800">
-            Usuarios
-        </h2>
+    <!-- USUARIOS: SOLO ADMINISTRADOR -->
 
-        <p class="mt-2 text-sm text-slate-500">
-            Administración de usuarios del sistema.
-        </p>
+    {% if session.get('rol') == 'Administrador' %}
 
-    </a>
+        <a
+            href="/usuarios"
+            class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
+        >
 
-    <a href="/servicios"
-       class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-slate-800">
+                Usuarios
+            </h2>
+
+            <p class="mt-2 text-sm text-slate-500">
+                Administración de usuarios del sistema.
+            </p>
+
+        </a>
+
+    {% endif %}
+
+
+    <!-- SERVICIOS TÉCNICOS -->
+
+    <a
+        href="/servicios"
+        class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
+    >
 
         <h2 class="text-lg font-semibold text-slate-800">
             Servicios Técnicos
@@ -84,6 +118,29 @@ Inicio
         </p>
 
     </a>
+
+
+    <!-- DASHBOARD: SOLO ADMINISTRADOR -->
+
+    {% if session.get('rol') == 'Administrador' %}
+
+        <a
+            href="/dashboard"
+            class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
+        >
+
+            <h2 class="text-lg font-semibold text-slate-800">
+                Dashboard
+            </h2>
+
+            <p class="mt-2 text-sm text-slate-500">
+                Resumen general y estadísticas del sistema.
+            </p>
+
+        </a>
+
+    {% endif %}
+
 
 </div>
 

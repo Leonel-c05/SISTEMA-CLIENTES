@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard Administrativo
+{% endblock %}
+
+{% block content %}
+
+<!-- ENCABEZADO -->
+
+<div class="mb-8">
+
+    <h1 class="text-3xl font-semibold text-slate-800">
+        Dashboard Administrativo
+    </h1>
+
+    <p class="mt-2 text-slate-500">
+        Resumen general del sistema de gestión.
+    </p>
+
+</div>
+
+
+<!-- TARJETAS PRINCIPALES -->
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+
+    <!-- CLIENTES -->
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+        <div class="flex items-center justify-between">
+
+            <div>
+
+                <p class="text-sm text-slate-500">
+                    Clientes registrados
+                </p>
+
+                <h2 class="text-3xl font-semibold text-slate-800 mt-2">
+                    {{ total_clientes }}
+                </h2>
+
+            </div>
+
+            <div class="text-3xl">
+                👥
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EQUIPOS -->
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+        <div class="flex items-center justify-between">
+
+            <div>
+
+                <p class="text-sm text-slate-500">
+                    Equipos registrados
+                </p>
+
+                <h2 class="text-3xl font-semibold text-slate-800 mt-2">
+                    {{ total_equipos }}
+                </h2>
+
+            </div>
+
+            <div class="text-3xl">
+                💻
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SERVICIOS -->
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+        <div class="flex items-center justify-between">
+
+            <div>
+
+                <p class="text-sm text-slate-500">
+                    Servicios técnicos
+                </p>
+
+                <h2 class="text-3xl font-semibold text-slate-800 mt-2">
+                    {{ total_servicios }}
+                </h2>
+
+            </div>
+
+            <div class="text-3xl">
+                🔧
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PRODUCTOS -->
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+        <div class="flex items-center justify-between">
+
+            <div>
+
+                <p class="text-sm text-slate-500">
+                    Productos registrados
+                </p>
+
+                <h2 class="text-3xl font-semibold text-slate-800 mt-2">
+                    {{ total_productos }}
+                </h2>
+
+            </div>
+
+            <div class="text-3xl">
+                📦
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SEGUNDA FILA -->
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+
+    <!-- SERVICIOS PENDIENTES -->
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+        <p class="text-sm text-slate-500">
+            Servicios pendientes
+        </p>
+
+        <h2 class="text-3xl font-semibold text-amber-600 mt-2">
+            {{ servicios_pendientes }}
+        </h2>
+
+        <p class="text-sm text-slate-400 mt-2">
+            Servicios aún no entregados.
+        </p>
+
+    </div>
+
+
+    <!-- STOCK BAJO -->
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+        <p class="text-sm text-slate-500">
+            Productos con stock bajo
+        </p>
+
+        <h2 class="text-3xl font-semibold text-red-600 mt-2">
+            {{ productos_stock_bajo }}
+        </h2>
+
+        <p class="text-sm text-slate-400 mt-2">
+            Productos con 3 unidades o menos.
+        </p>
+
+    </div>
+
+
+    <!-- INGRESOS SERVICIOS -->
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+
+        <p class="text-sm text-slate-500">
+            Ingresos por servicios
+        </p>
+
+        <h2 class="text-3xl font-semibold text-emerald-600 mt-2">
+            ${{ "%.2f"|format(ingresos_servicios) }}
+        </h2>
+
+        <p class="text-sm text-slate-400 mt-2">
+            Según los servicios registrados.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- RESUMEN ECONÓMICO -->
+
+<div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+
+    <div class="px-6 py-5 border-b border-slate-200">
+
+        <h2 class="text-xl font-semibold text-slate-800">
+            Resumen económico
+        </h2>
+
+        <p class="text-sm text-slate-500 mt-1">
+            Información económica registrada en el sistema.
+        </p>
+
+    </div>
+
+
+    <div class="p-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+
+            <!-- SERVICIOS -->
+
+            <div class="border border-slate-200 rounded-lg p-5">
+
+                <p class="text-sm text-slate-500">
+                    Servicios técnicos
+                </p>
+
+                <p class="text-2xl font-semibold text-slate-800 mt-2">
+                    ${{ "%.2f"|format(ingresos_servicios) }}
+                </p>
+
+            </div>
+
+
+            <!-- PRODUCTOS -->
+
+            <div class="border border-slate-200 rounded-lg p-5">
+
+                <p class="text-sm text-slate-500">
+                    Productos utilizados
+                </p>
+
+                <p class="text-2xl font-semibold text-slate-800 mt-2">
+                    ${{ "%.2f"|format(ingresos_productos) }}
+                </p>
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="bg-slate-900 rounded-lg p-5">
+
+                <p class="text-sm text-slate-300">
+                    Ingresos totales
+                </p>
+
+                <p class="text-3xl font-semibold text-white mt-2">
+                    ${{ "%.2f"|format(ingresos_totales) }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ACCIONES -->
+
+<div class="mt-8">
+
+    <h2 class="text-xl font-semibold text-slate-800 mb-4">
+        Administración
+    </h2>
+
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+
+        <!-- GESTIONAR USUARIOS -->
+
+        <a
+            href="/usuarios"
+            class="bg-white border border-slate-200 rounded-xl p-5 hover:bg-slate-50 hover:shadow-sm transition"
+        >
+
+            <div class="text-2xl mb-2">
+                👥
+            </div>
+
+            <h3 class="font-semibold text-slate-800">
+                Gestionar usuarios
+            </h3>
+
+            <p class="text-sm text-slate-500 mt-1">
+                Administrar usuarios y roles.
+            </p>
+
+        </a>
+
+
+        <!-- REPORTES -->
+
+        <a
+            href="/reportes"
+            class="bg-white border border-slate-200 rounded-xl p-5 hover:bg-slate-50 hover:shadow-sm transition"
+        >
+
+            <div class="text-2xl mb-2">
+                📄
+            </div>
+
+            <h3 class="font-semibold text-slate-800">
+                Reportes
+            </h3>
+
+            <p class="text-sm text-slate-500 mt-1">
+                Generar reportes administrativos.
+            </p>
+
+        </a>
+
+
+        <!-- RESPALDOS -->
+
+        <a
+            href="/respaldos"
+            class="bg-white border border-slate-200 rounded-xl p-5 hover:bg-slate-50 hover:shadow-sm transition"
+        >
+
+            <div class="text-2xl mb-2">
+                💾
+            </div>
+
+            <h3 class="font-semibold text-slate-800">
+                Respaldos
+            </h3>
+
+            <p class="text-sm text-slate-500 mt-1">
+                Administrar copias de seguridad.
+            </p>
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
